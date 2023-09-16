@@ -8,7 +8,7 @@
     coreutils # fileutils, textutils, shellutils
     findutils # find, locate, locatedb, xargs
     diffutils # diff, cmp
-    grep
+    gnugrep
     openssh
     less
     cmake
