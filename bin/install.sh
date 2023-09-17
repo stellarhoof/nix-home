@@ -14,14 +14,14 @@ curl https://raw.githubusercontent.com/stellarhoof/pass/master/ssh/github.com.gp
 chmod 600 ~/.ssh/github.com
 ssh-add ~/.ssh/github.com
 
-# Clone this repository
-git clone git@github.com:stellarhoof/nix-home.git ~/.config/home-manager
+# Clone necessary repositories
+[ ! -d ~/.config/nvim ] && git clone git@github.com:stellarhoof/nvim.git ~/.config/nvim
+[ ! -d ~/.config/home-manager ] && git clone -q git@github.com:stellarhoof/nix-home.git ~/.config/home-manager
+[ ! -d ~/.local/share/password-store ] && git clone git@github.com:stellarhoof/pass.git ~/.local/share/password-store
 
-# Clone neovim config
-git clone git@github.com:stellarhoof/nvim.git ~/.config/nvim
-
-# Clone password store
-git clone git@github.com:stellarhoof/pass.git ~/.local/share/password-store
+# Create empty user profile. Temporary until
+# https://github.com/nix-community/home-manager/issues/4403 gets resolved
+nix run nixpkgs#hello > /dev/null
 
 # Activate configuration
-home-manager switch
+home-manager switch -b backup
