@@ -8,8 +8,10 @@
     htop # Interactive process viewer
     killall # Kill processes by name
     nix-doc # AST-based documentation search for nix
+    nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC
+    ripgrep # Better grep
     unrar # File archiver
     unzip # File archiver
     wget # Non-interactive web downloader

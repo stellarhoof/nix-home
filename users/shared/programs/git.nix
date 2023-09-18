@@ -45,6 +45,7 @@
       # Committing
       cm = "commit";
       cma = "commit --amend";
+      cmm = "commit --message";
       cman = "commit --amend --no-edit";
       # Diffing
       dfn = "diff --name-only";
