@@ -57,7 +57,7 @@
   # Whether to manager gtk2/3/4 configuration through home-manager.
   gtk.enable = true;
 
-  gtk.font = with config.mine.fonts.serif; {
+  gtk.font = with config.lib.fonts.serif; {
     inherit size;
     name = "${name} ${style}";
   };

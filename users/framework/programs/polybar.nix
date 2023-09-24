@@ -148,7 +148,7 @@ in {
       #   font-1 = MaterialIcons:size=10
       #   font-2 = Termsynu:size=8;-1
       #   font-3 = FontAwesome:size=10
-      font = [ (fontString config.mine.fonts.mono) ];
+      font = [ (fontString config.lib.fonts.mono) ];
 
       # Modules are added to one of the available blocks.
       # modules-left = "spacing BLD launcher BRD dot GLD cpu YPL memory CPL filesystem CRD dot MLD network MRD";

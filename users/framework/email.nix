@@ -208,7 +208,7 @@ in {
   # Cannot map over config.accounts.email.accounts here due to infinite
   # recursion issues.
   accounts.email.accounts = builtins.mapAttrs (name: _:
-    pkgs.mylib.mergeAttrList [
+    lib.lists.foldl' lib.trivial.mergeAttrs { } [
       (makeEmailAccount name)
       (makeImapnotifyAccountConfig name)
       (makeMbsyncAccountConfig name)

@@ -45,6 +45,7 @@
       # Committing
       cm = "commit";
       cma = "commit --amend";
+      cmm = "commit --message";
       cman = "commit --amend --no-edit";
       # Diffing
       dfn = "diff --name-only";
@@ -150,5 +151,4 @@
   # function git_oldest_ancestor --description "https://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git" --argument base branch
   #   diff --old-line-format="" --new-line-format="" (git rev-list --first-parent "$base" | psub) (git rev-list --first-parent "$branch" | psub) | head -1
   # end
-
 }

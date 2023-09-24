@@ -1,5 +1,5 @@
 { pkgs, config, ... }:
-let mono = config.mine.fonts.mono;
+let mono = config.lib.fonts.mono;
 in {
   programs.astroid.extraConfig = {
     astroid.log.level = "warning";
@@ -8,7 +8,7 @@ in {
     poll.interval = 0;
 
     # Font for messages list.
-    thread_index.cell.font_description = pkgs.mylib.fontConfigString mono;
+    thread_index.cell.font_description = "${mono.name} ${toString mono.size}";
   };
 
   xdg.configFile."astroid/ui/part.scss".text = ''

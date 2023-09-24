@@ -1,8 +1,7 @@
 { lib, config, pkgs, ... }: {
   programs.fzf.enable = true;
 
-  programs.fzf.defaultCommand =
-    "${config.home.shellAliases.rg} --files --no-ignore-vcs";
+  programs.fzf.defaultCommand = "rg --files --no-ignore-vcs";
 
   programs.fzf.defaultOptions = [
     "--cycle"

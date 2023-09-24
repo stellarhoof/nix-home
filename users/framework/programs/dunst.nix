@@ -7,9 +7,10 @@
     size = "48x48";
   };
 
-  services.dunst.settings = lib.recursiveUpdate {
+  # Colors are based off of https://github.com/tinted-theming/base16-dunst
+  services.dunst.settings = with config.colorScheme.colors; {
     global = {
-      font = pkgs.mylib.fontConfigString config.mine.fonts.mono;
+      font = with config.lib.fonts.mono; "${name} ${toString size}";
       dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst";
       browser = config.home.sessionVariables.BROWSER;
       # # {width}][x{height}][+/-{x}[+/-{y}]]
@@ -26,6 +27,20 @@
       # max_icon_size = 64;
       # corner_radius = 2;
       # mouse_left_click = "do_action";
+      frame_color = "#${base05}";
+      separator_color = "#${base05}";
     };
-  } config.mine.colors.dunst;
+    urgency_low = {
+      background = "#${base01}";
+      foreground = "#${base03}";
+    };
+    urgency_normal = rec {
+      background = "#${base02}";
+      foreground = "#${base05}";
+    };
+    urgency_critical = rec {
+      background = "#${base08}";
+      foreground = "#${base06}";
+    };
+  };
 }

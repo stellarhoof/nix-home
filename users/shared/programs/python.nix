@@ -2,8 +2,8 @@
   home.packages = with pkgs; [
     black
     isort
-    (python38Packages.python.buildEnv.override {
-      extraLibs = with python38Packages; [ pytest pymongo pydash ];
+    (python3Packages.python.buildEnv.override {
+      extraLibs = with python3Packages; [ pytest pymongo pydash ];
       ignoreCollisions = true;
     })
   ];
