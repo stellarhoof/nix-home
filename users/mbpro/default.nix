@@ -14,6 +14,8 @@
     cmake
   ];
 
+  home.sessionPath = [ "${config.home.homeDirectory}/.docker/bin" ];
+
   # In linux, neovim is provided at the system level but in MacOS it's not, so
   # we have to manage it at the user level
   programs.neovim.enable = true;
