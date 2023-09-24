@@ -14,6 +14,15 @@
     cmake
   ];
 
+  # In linux, neovim is provided at the system level but in MacOS it's not, so
+  # we have to manage it at the user level
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
+  programs.neovim.viAlias = true;
+  programs.neovim.vimAlias = true;
+  programs.neovim.withPython3 = false;
+  programs.neovim.withRuby = false;
+
   # Not shared because it's already enabled in nixos at the system level.
   # Provides a command `nix-locate` to locate the package providing a certain
   # file in nixpkgs. This also enables a `command-not-found` replacement that
@@ -57,6 +66,10 @@
     max-cache-ttl-ssh 34560000
     pinentry-program ${pkgs.pinentry_mac}/${pkgs.pinentry_mac.binaryPath}
   '';
+
+  # In linux, these experimental features are setup at the system level.
+  nix.package = pkgs.nix;
+  nix.settings.experimental-features = "nix-command flakes";
 
   # Copy applications instead of linking them so Spotlight finds them. Long
   # discussion at https://github.com/nix-community/home-manager/issues/1341.
