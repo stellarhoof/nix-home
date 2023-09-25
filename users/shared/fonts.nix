@@ -7,7 +7,7 @@ let
     style.normal = "Regular";
     style.italic = "Italic";
     style.bold = "Bold";
-    style.boldItalic = "Bold Italic";
+    style.bold-italic = "Bold Italic";
   };
 
   mono.iosevka = {
@@ -17,7 +17,7 @@ let
     style.normal = "Regular";
     style.italic = "Italic";
     style.bold = "Bold";
-    style.boldItalic = "Bold Italic";
+    style.bold-italic = "Bold Italic";
   };
 
   mono.ibmPlex = {
@@ -27,7 +27,7 @@ let
     style.normal = "Text";
     style.italic = "Italic";
     style.bold = "Bold";
-    style.boldItalic = "Bold Italic";
+    style.bold-italic = "Bold Italic";
   };
 
   mono.roboto = {
@@ -37,18 +37,18 @@ let
     style.normal = "Regular";
     style.italic = "Italic";
     style.bold = "Bold";
-    style.boldItalic = "Bold Italic";
+    style.bold-italic = "Bold Italic";
   };
 
   serif.ibmPlex = {
-    size = 9;
+    size = 10;
     name = "IBM Plex Serif";
     package = pkgs.ibm-plex;
     style = "Regular";
   };
 
   sans.ibmPlex = {
-    size = 9;
+    size = 10;
     name = "IBM Plex Sans";
     package = pkgs.ibm-plex;
     style = "Regular";

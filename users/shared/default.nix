@@ -4,6 +4,7 @@
   imports = [
     nix-colors.homeManagerModules.default
     ./fonts.nix
+    # ./smartprocure.nix
     ./programs/direnv.nix
     ./programs/fzf.nix
     ./programs/git.nix
@@ -49,7 +50,7 @@
   programs.ripgrep.arguments = [
     "--hidden"
     "--smart-case"
-    "--glob '!{package-lock.json,.git,yarn.lock,.yarn}'"
+    "--glob=!{package-lock.json,.git,yarn.lock,.yarn}"
   ];
 
   # Whether to generate the manual page index caches using mandb(8). This allows
@@ -142,7 +143,7 @@
       # Default foreground, caret, delimiters, operators
       base05 = "c0caf5";
       # Light foreground
-      base06 = "545c7e";
+      base06 = "c0caf5";
       # Light background
       base07 = "292e42";
       # Variables, XML tags, markup link text, markup lists, diff deleted

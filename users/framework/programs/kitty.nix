@@ -4,13 +4,21 @@
   programs.kitty.enable = true;
 
   programs.kitty.font.package = config.lib.fonts.mono.package;
+  # TODO: fontconfig should be used to pick these up
   programs.kitty.font.name = config.lib.fonts.mono.name;
   programs.kitty.font.size = config.lib.fonts.mono.size;
 
   programs.kitty.settings = with config.colorScheme.colors; {
-    kitty_mod = "alt";
+    # TODO: fontconfig should be used to pick these up
+    bold_font = with config.lib.fonts.mono; "${name} ${style.bold}";
+    italic_font = with config.lib.fonts.mono; "${name} ${style.italic}";
+    bold_italic_font = with config.lib.fonts.mono;
+      "${name} ${style.bold-italic}";
 
-    # Colors are based off of https://github.com/kdrag0n/base16-kitty
+    kitty_mod = "super";
+
+    # Colors inspired by https://github.com/kdrag0n/base16-kitty
+
     # General colors
     background = "#${base00}";
     foreground = "#${base05}";
@@ -26,7 +34,7 @@
     active_tab_background = "#${base01}";
     active_tab_foreground = "#${base04}";
     inactive_tab_background = "#${base07}";
-    inactive_tab_foreground = "#${base06}";
+    inactive_tab_foreground = "#${base05}";
     tab_bar_background = "#${base07}";
 
     # Normal ANSI colors

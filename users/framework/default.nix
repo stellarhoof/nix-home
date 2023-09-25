@@ -2,19 +2,20 @@
   imports = [
     ../shared/default.nix
     ./fontconfig.nix
-    ./programs/kitty.nix
-    ./programs/hyprland.nix
-    ./programs/waybar.nix
-    # ./brave.nix
+    ./wayland.nix
     # ./default-applications.nix
     # ./email.nix
     # ./gtk.nix
+    # ./media-keys-scripts.nix
+    ./programs/kitty.nix
+    ./programs/hyprland.nix
+    ./programs/hyprpaper.nix
+    ./programs/waybar.nix
+    # ./programs/brave.nix
     # ./programs/dunst.nix
     # ./programs/mpv.nix
-    # ./programs/polybar.nix
-    # ./programs/sway.nix
+    # ./programs/rofi.nix
     # ./programs/zathura.nix
-    # ./media-keys-scripts.nix
   ];
 
   home.packages = with pkgs; [
