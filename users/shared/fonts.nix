@@ -1,66 +1,81 @@
 { config, lib, pkgs, ... }:
 let
-  mono.fira = {
-    size = 9;
-    name = "FiraCode";
-    package = pkgs.fira-code;
-    style.normal = "Regular";
-    style.italic = "Italic";
-    style.bold = "Bold";
-    style.bold-italic = "Bold Italic";
+  size = 10;
+
+  # TODO: The font size is dependent on many things like display resolution,
+  # scaling, etc... so it should really be configured per machine.
+  defaults = {
+    sans = {
+      inherit size;
+      style.normal = "Regular";
+    };
+    serif = {
+      inherit size;
+      style.normal = "Regular";
+    };
+    mono = {
+      size = size + 1;
+      style.normal = "Regular";
+      style.italic = "Regular Italic";
+      style.bold = "Bold";
+      style.bold-italic = "Bold Italic";
+    };
   };
 
-  mono.iosevka = {
-    size = 9;
-    name = "Iosevka";
-    package = pkgs.iosevka;
-    style.normal = "Regular";
-    style.italic = "Italic";
-    style.bold = "Bold";
-    style.bold-italic = "Bold Italic";
+  sans.lexend = defaults.sans // {
+    name = "Lexend";
+    package = pkgs.lexend;
   };
 
-  mono.ibmPlex = {
-    size = 9;
-    name = "IBM Plex Mono";
-    package = pkgs.ibm-plex;
-    style.normal = "Text";
-    style.italic = "Italic";
-    style.bold = "Bold";
-    style.bold-italic = "Bold Italic";
-  };
-
-  mono.roboto = {
-    size = 9;
-    name = "Roboto Mono";
-    package = pkgs.roboto-mono;
-    style.normal = "Regular";
-    style.italic = "Italic";
-    style.bold = "Bold";
-    style.bold-italic = "Bold Italic";
-  };
-
-  serif.ibmPlex = {
-    size = 10;
-    name = "IBM Plex Serif";
-    package = pkgs.ibm-plex;
-    style = "Regular";
-  };
-
-  sans.ibmPlex = {
-    size = 10;
+  sans.IBMPlex = defaults.sans // {
     name = "IBM Plex Sans";
     package = pkgs.ibm-plex;
-    style = "Regular";
+  };
+
+  serif.IBMPlex = defaults.serif // {
+    name = "IBM Plex Serif";
+    package = pkgs.ibm-plex;
+  };
+
+  icon.nerdfonts = {
+    name = "NerdFontsSymbolsOnly";
+    package = (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; });
+  };
+
+  mono.iosevka = defaults.mono // {
+    name = "Iosevka Fixed Slab";
+    package =
+      (pkgs.iosevka-bin.override { variant = "sgr-iosevka-fixed-slab"; });
+    # style.normal = "Medium";
+    # style.italic = "Medium Italic";
+    # style.bold = "Extrabold";
+    # style.bold-italic = "Extrabold Italic";
+  };
+
+  mono.cascadia = defaults.mono // {
+    name = "Cascadia Code";
+    package = pkgs.cascadia-code;
+  };
+
+  mono.IBMPlex = defaults.mono // {
+    name = "IBM Plex Mono";
+    package = pkgs.ibm-plex;
+  };
+
+  mono.fira = defaults.mono // {
+    name = "Fira Code";
+    package = pkgs.fira-code;
   };
 in {
-  lib.fonts.mono = mono.iosevka;
-  lib.fonts.serif = serif.ibmPlex;
-  lib.fonts.sans = sans.ibmPlex;
+  lib.fonts.mono = mono.fira;
+  lib.fonts.serif = serif.IBMPlex;
+  lib.fonts.sans = sans.IBMPlex;
+  lib.fonts.icon = icon.nerdfonts;
 
   home.packages = with pkgs; [
-    config.lib.fonts.serif.package
-    config.lib.fonts.sans.package
     config.lib.fonts.mono.package
+    config.lib.fonts.sans.package
+    config.lib.fonts.serif.package
+    config.lib.fonts.icon.package
   ];
 }

@@ -5,33 +5,31 @@
     ./wayland.nix
     # ./default-applications.nix
     # ./email.nix
-    # ./gtk.nix
+    ./gtk.nix
     # ./media-keys-scripts.nix
-    ./programs/kitty.nix
-    ./programs/hyprland.nix
-    ./programs/hyprpaper.nix
-    ./programs/waybar.nix
-    # ./programs/brave.nix
+    ./programs/brave.nix
     # ./programs/dunst.nix
     # ./programs/mpv.nix
     # ./programs/rofi.nix
-    # ./programs/zathura.nix
+    ./programs/zathura.nix
   ];
 
   home.packages = with pkgs; [
-    calibre # EBook manager
-    dfeet # DBus viewer: https://0pointer.net/blog/the-new-sd-bus-api-of-systemd.html
-    font-manager # Font manager
-    gparted # Partition manager
-    hakuneko # Manga downloader
+    # calibre # EBook manager
+    # dfeet # DBus viewer: https://0pointer.net/blog/the-new-sd-bus-api-of-systemd.html
+    # gparted # Partition manager
+    # hakuneko # Manga downloader
     libnotify # Send notifications to a desktop notifications daemon
-    transmission-qt # BitTorrent downloader
+    # transmission-qt # BitTorrent downloader
+    xfce.thunar # File manager
+    gradience # Customize libadwaita and GTK3 apps
+    transmission-gtk # BitTorrent downloader
   ];
 
   # Whether new or changed services that are wanted by active targets
   # should be started. Additionally, stop obsolete services from the
   # previous generation.
-  systemd.user.startServices = "sd-switch";
+  systemd.user.startServices = false;
 
   services.gpg-agent = let ttl = 60480000;
   in {

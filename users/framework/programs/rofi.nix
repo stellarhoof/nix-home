@@ -1,10 +1,1 @@
-{ config, pkgs, ... }:
-
-with pkgs;
-
-{
-  programs.rofi = {
-    enable = true;
-  };
-}
-
+{ config, pkgs, ... }: { programs.rofi.enable = true; }
