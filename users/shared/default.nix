@@ -6,9 +6,9 @@
     ./fonts.nix
     # ./smartprocure.nix
     ./programs/direnv.nix
+    ./programs/eza.nix
     ./programs/fzf.nix
     ./programs/git.nix
-    ./programs/kitty.nix
     ./programs/node.nix
     ./programs/pass.nix
     ./programs/python.nix
@@ -27,6 +27,7 @@
     nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC
+    trash-cli # Trash can
     unrar # File archiver
     unzip # File archiver
     wget # Non-interactive web downloader
@@ -62,21 +63,17 @@
   # https://github.com/nix-community/home-manager/issues/2942
   nixpkgs.config.allowUnfreePredicate = (pkg: true);
 
+  # Process/system monitor
+  programs.bottom.enable = true;
+
   # Simple aliases that are compatible across all shells.
   home.shellAliases = rec {
     cp = "cp -i";
     rm = "rm -I";
     df = "df -h";
-    diff = "diff --color=auto";
-    du = "du -ch --summarize";
-    l = "${ls} -Alho";
-    la = "${ls} -A";
-    # Use full path to avoid infinite recursion when auto completing
-    ls =
-      "LC_ALL=C ${pkgs.coreutils}/bin/ls --color=auto --group-directories-first";
-    dmesg = "dmesg -H";
+    du = "dua";
     less = "less -R";
-    tree = "${pkgs.tree}/bin/tree -a --dirsfirst -I .git";
+    diff = "diff --color=auto";
   };
 
   home.file.".local/bin" = {
