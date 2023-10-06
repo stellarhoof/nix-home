@@ -43,9 +43,6 @@
       (toString (writeShellScript "init" ''
         ${hyprpaper}/bin/hyprpaper &
         waybar &
-        hyprctl setcursor ${config.home.pointerCursor.name} ${
-          toString config.home.pointerCursor.size
-        }
       ''));
 
     # Scale the default display to 1.5 its native resolution
@@ -185,11 +182,11 @@
       "$mod SHIFT, k, movewindow, u"
       "$mod SHIFT, j, movewindow, d"
 
-      # Toggle fullscreen state
-      "$mod CTRL, f, fullscreen"
-
       # Toggle floating state
       "$mod, f, togglefloating"
+
+      # Toggle fullscreen state
+      "$mod CTRL, f, fullscreen"
 
       # Switch workspaces
       "$mod, 1, workspace, 1"
@@ -202,13 +199,6 @@
       "$mod, 8, workspace, 8"
       "$mod, 9, workspace, 9"
 
-      # Switch to next empty workspace
-      "$mod, 0, workspace, empty"
-
-      # Switch to prev/next workspace
-      "$mod, bracketleft, workspace, e-1"
-      "$mod, bracketright, workspace, e+1"
-
       # Move active window to workspace
       "$mod SHIFT, 1, movetoworkspacesilent, 1"
       "$mod SHIFT, 2, movetoworkspacesilent, 2"
@@ -219,6 +209,13 @@
       "$mod SHIFT, 7, movetoworkspacesilent, 7"
       "$mod SHIFT, 8, movetoworkspacesilent, 8"
       "$mod SHIFT, 9, movetoworkspacesilent, 9"
+
+      # Switch to next empty workspace
+      "$mod, 0, workspace, empty"
+
+      # Switch to prev/next workspace
+      "$mod, bracketleft, workspace, e-1"
+      "$mod, bracketright, workspace, e+1"
 
       # https://wiki.archlinux.org/title/WirePlumber#Keyboard_volume_control
       # TODO: Leave key pressed and repeat action on volume raise/lower

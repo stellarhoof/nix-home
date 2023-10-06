@@ -10,7 +10,7 @@
     ./programs/brave.nix
     # ./programs/dunst.nix
     # ./programs/mpv.nix
-    # ./programs/rofi.nix
+    ./programs/rofi.nix
     ./programs/zathura.nix
   ];
 
