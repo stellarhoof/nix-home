@@ -1,6 +1,6 @@
 # TODO: Look into https://github.com/outfoxxed/hy3 for more layout options
 
-{ pkgs, config, ... }: {
+{ pkgs, config, inputs, ... }: {
   # Not sure what libset is used for but it fixes an error on Hyprland
   # initialization.
   home.sessionVariables.LIBSEAT_BACKEND = "logind";
@@ -8,14 +8,46 @@
   # Enable hyprland, a tiling wayland compositor
   wayland.windowManager.hyprland.enable = true;
 
+  # Use the flake provided hyprland package
+  wayland.windowManager.hyprland.package =
+    inputs.hyprland.packages.${pkgs.system}.hyprland;
+
   # This will help with trying to use wayland apps exclusively
   wayland.windowManager.hyprland.xwayland.enable = false;
 
-  wayland.windowManager.hyprland.extraConfig = ''
-    # Using another env var in `home.sessionVariables` is futile so instead set
-    # them here.
-    env = HYPRLAND_LOG,/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/hyprland.log
-  '';
+  wayland.windowManager.hyprland.plugins =
+    [ inputs.hy3.packages.${pkgs.system}.hy3 ];
+
+  wayland.windowManager.hyprland.extraConfig =
+    with config.colorScheme.colors; ''
+      # Using another env var in `home.sessionVariables` is futile so instead set
+      # them here.
+      env = HYPRLAND_LOG,/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/hyprland.log
+
+      plugin {
+        hy3 {
+          # policy controlling what happens when a node is removed from a group,
+          # leaving only a group
+          # 0 = remove the nested group
+          # 1 = keep the nested group
+          # 2 = keep the nested group only if its parent is a tab group
+          node_collapse_policy = 0
+
+          tabs {
+            render_text = false
+            height = 10
+            rounding = 10
+            col.active = rgb(${base0B})
+            col.inactive = rgb(${base02})
+          }
+
+          # Autotiling groups all windows in the workspace
+          autotile {
+            enable = true
+          }
+        }
+      }
+    '';
 
   wayland.windowManager.hyprland.settings = {
     # exec-once will not be executed on reloads
@@ -29,6 +61,7 @@
     monitor = ",highres,auto,1.5";
 
     general = with config.colorScheme.colors; {
+      layout = "hy3";
       gaps_in = 5;
       gaps_out = 10;
       border_size = 2;
@@ -130,6 +163,7 @@
     };
 
     windowrulev2 = [
+      # Float the terminal that switches home-manager configurations
       "float,title:(home-switch)"
 
       # Always open firefox in workspace 1
@@ -170,8 +204,10 @@
       # Kill active window
       "$mod, Backspace, killactive"
 
-      # Toggle window group
-      "$mod, t, togglegroup"
+      # Group layout
+      "$mod, t, hy3:makegroup, tab"
+      "$mod, Bracketleft, hy3:focustab, left"
+      "$mod, Bracketright, hy3:focustab, right"
 
       # Move focus across windows
       "$mod, h, movefocus, l"
