@@ -40,7 +40,7 @@
   wayland.windowManager.hyprland.settings = {
     # exec-once will not be executed on reloads
     exec-once = with pkgs;
-      (toString (writeShellScript "init" ''
+      (toString (writeShellScript "hyprland-init" ''
         ${hyprpaper}/bin/hyprpaper &
         waybar &
       ''));
@@ -66,17 +66,12 @@
       # Make background color black so the transition from a tty is not that
       # noticeable.
       background_color = "0x000000";
-      # Do not draw gradients in the bar for grouped windows
-      groupbar_gradients = false;
-      groupbar_text_color = "rgb(${base05})";
-      groupbar_titles_font_size =
-        builtins.floor (config.lib.fonts.sans.size * 1.3);
     };
 
     decoration = with config.colorScheme.colors; {
       rounding = 5;
-      dim_inactive = false;
-      dim_strength = 0.4;
+      dim_inactive = true;
+      dim_strength = 0.2;
     };
 
     # See https://linuxtouchpad.org for debugging touchpad issues
@@ -154,21 +149,47 @@
       ];
     };
 
-    windowrulev2 = [ "float,title:(home-switch)" ];
+    windowrulev2 = [
+      "float,title:(home-switch)"
+
+      # Center and resize open file dialogs
+      "center,title:(Open File)"
+      "size 50% 50%,title:(Open File)"
+
+      # Center and resize save as dialogs
+      "center,title:(Save As)"
+      "size 50% 50%,title:(Save As)"
+    ];
 
     "$mod" = "super";
+
+    # binde repeats keypresses
+    binde = [
+      # https://wiki.archlinux.org/title/WirePlumber#Keyboard_volume_control
+      # TODO: Leave key pressed and repeat action on volume raise/lower
+      # TODO: Play audio sound when changing volume
+      # TODO: Send notification when changing volume
+      ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
+      ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
+      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
+
+      # https://wiki.archlinux.org/title/Backlight
+      ",XF86MonBrightnessUp, exec, brillo -q -A 5"
+      ",XF86MonBrightnessDown, exec, brillo -q -U 5"
+    ];
 
     # Check
     # https://github.com/xkbcommon/libxkbcommon/blob/master/include/xkbcommon/xkbcommon-keysyms.h for names of keysyms.
     bind = [
       # Exit compositor
-      "$mod SHIFT, Q, exit"
+      "$mod Shift, Backspace, exit"
 
       # Kill active window
-      "$mod, Q, killactive"
+      "$mod, Backspace, killactive"
 
       # Toggle window group
-      "$mod, g, togglegroup"
+      "$mod, t, togglegroup"
 
       # Move focus across windows
       "$mod, h, movefocus, l"
@@ -186,7 +207,7 @@
       "$mod, f, togglefloating"
 
       # Toggle fullscreen state
-      "$mod CTRL, f, fullscreen"
+      "$mod SHIFT, f, fullscreen"
 
       # Switch workspaces
       "$mod, 1, workspace, 1"
@@ -214,41 +235,32 @@
       "$mod, 0, workspace, empty"
 
       # Switch to prev/next workspace
-      "$mod, bracketleft, workspace, e-1"
-      "$mod, bracketright, workspace, e+1"
+      "$mod, Comma, workspace, e-1"
+      "$mod, Period, workspace, e+1"
 
-      # https://wiki.archlinux.org/title/WirePlumber#Keyboard_volume_control
-      # TODO: Leave key pressed and repeat action on volume raise/lower
-      # TODO: Play audio sound when changing volume
-      # TODO: Send notification when changing volume
-      ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
-      ",XF86AudioLowerVolume, exec, wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"
-      ",XF86AudioMute, exec, wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
-      ",XF86AudioMicMute, exec, wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"
-
-      # https://wiki.archlinux.org/title/Backlight
-      ",XF86MonBrightnessUp, exec, brillo -q -A 5"
-      ",XF86MonBrightnessDown, exec, brillo -q -U 5"
-
-      # Terminal
+      # Applications
       "$mod, Return, exec, foot"
+      "$mod, b, exec, firefox"
 
       # Application launcher
       "$mod, Space, exec, rofi -show drun"
 
-      # Program runner
-      ("$mod SHIFT, Space, exec, " + (pkgs.writeShellScript "" ''
-        rofi -show run -run-shell-command "{terminal} --hold {cmd}"
-      ''))
+      "$mod SHIFT, Space, exec, ${
+        pkgs.writeShellScript "program-runner" ''
+          rofi -show run -run-shell-command "{terminal} --hold {cmd}"
+        ''
+      }"
 
-      ("$mod, Minus, exec, " + (pkgs.writeShellScript "" ''
-        foot --title=home-switch ${
-          pkgs.writeShellScript "" ''
-            home-manager switch
-            read -p "Press ENTER to close..."
-          ''
-        }
-      ''))
+      "$mod, Minus, exec, ${
+        pkgs.writeShellScript "home-switch" ''
+          foot --title=home-switch ${
+            pkgs.writeShellScript "home-switch" ''
+              home-manager switch
+              read -p "Press ENTER to close..."
+            ''
+          }
+        ''
+      }"
     ];
   };
 }

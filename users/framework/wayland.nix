@@ -1,6 +1,10 @@
 { pkgs, ... }: {
-  imports =
-    [ ./programs/foot.nix ./programs/hyprland.nix ./programs/waybar.nix ];
+  imports = [
+    # ./programs/hyprland.nix
+    ./programs/foot.nix
+    ./programs/rofi-wayland.nix
+    ./programs/waybar.nix
+  ];
 
   home.sessionVariables = {
     # Hint electron apps to use Wayland

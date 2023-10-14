@@ -9,20 +9,13 @@
     ./fontconfig.nix
     ./gtk.nix
     ./programs/firefox.nix
-    ./programs/rofi.nix
     ./programs/zathura.nix
     ./wayland.nix
   ];
 
   home.packages = with pkgs; [
-    # calibre # EBook manager
-    # dfeet # DBus viewer: https://0pointer.net/blog/the-new-sd-bus-api-of-systemd.html
-    # gparted # Partition manager
-    # hakuneko # Manga downloader
     libnotify # Send notifications to a desktop notifications daemon
     # transmission-qt # BitTorrent downloader
-    xfce.thunar # File manager
-    gradience # Customize libadwaita and GTK3 apps
     transmission-gtk # BitTorrent downloader
   ];
 
