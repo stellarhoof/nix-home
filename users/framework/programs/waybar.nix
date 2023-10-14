@@ -31,7 +31,7 @@ in {
     };
     wireplumber = {
       format = "{icon} {volume}% ({node_name})";
-      format-muted = "󰝟";
+      format-muted = "󰝟 {volume}% ({node_name})";
       format-icons = [ "󰕿" "󰖀" "󰕾" ];
     };
     network = {
@@ -40,30 +40,6 @@ in {
     };
     clock = { format = "{:󰸗 %a, %b %e 󰅐 %I:%M %p}"; };
   }];
-
-  # # Transparent bar
-  # window#waybar {
-  #   background-color: transparent;
-  # }
-  #
-  # window#waybar > box {
-  #   opacity: 0.85;
-  #   background-color: #${base00};
-  #   border-bottom: 1px solid #${base00};
-  #   margin-bottom: 4px;
-  #   box-shadow: 0px 0px 2px 2px rgba(0,0,0,0.8);
-  # }
-  #
-  # #workspaces button {
-  #   background: transparent;
-  #   min-height: 0px;
-  #   min-width: 0px;
-  #   padding: 4px;
-  #   box-shadow: none;
-  #   border-radius: 0px;
-  #   border-width: 0px;
-  #   outline-width: 0px;
-  # }
 
   # https://docs.gtk.org/gtk3/css-properties.html
   programs.waybar.style = with config.colorScheme.colors;
@@ -125,13 +101,13 @@ in {
       /* Buttons should inherit color from their parent damnit! */
       button, button box, button label { color: inherit; }
 
-      ${makeModuleGroup base0B [ "workspaces" "window" ]}
+      ${makeModuleGroup base01 [ "workspaces" "window" ]}
 
-      ${makeModuleGroup base0F [ "cpu" "memory" "battery" ]}
+      ${makeModuleGroup base01 [ "cpu" "memory" "battery" ]}
 
-      ${makeModuleGroup base0A [ "backlight" "wireplumber" "network" ]}
+      ${makeModuleGroup base01 [ "backlight" "wireplumber" "network" ]}
 
-      ${makeModuleGroup base0B [ "clock" ]}
+      ${makeModuleGroup base01 [ "clock" ]}
 
       #workspaces button:not(:last-child) {
         margin-right: ${toString (gap * 1.5)}px;

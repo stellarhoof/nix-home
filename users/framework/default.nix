@@ -1,17 +1,17 @@
 { config, lib, pkgs, ... }: {
   imports = [
-    ../shared/default.nix
-    ./fontconfig.nix
-    ./wayland.nix
     # ./default-applications.nix
     # ./email.nix
-    ./gtk.nix
     # ./media-keys-scripts.nix
-    ./programs/brave.nix
     # ./programs/dunst.nix
     # ./programs/mpv.nix
+    ../shared/default.nix
+    ./fontconfig.nix
+    ./gtk.nix
+    ./programs/firefox.nix
     ./programs/rofi.nix
     ./programs/zathura.nix
+    ./wayland.nix
   ];
 
   home.packages = with pkgs; [
@@ -50,8 +50,10 @@
   xdg.userDirs.templates = null;
 
   # The cursor theme and settings.
-  home.pointerCursor.name = "Vanilla-DMZ";
-  home.pointerCursor.package = pkgs.vanilla-dmz;
-  home.pointerCursor.size = 64;
+  home.pointerCursor.name = "graphite-dark-nord";
+  home.pointerCursor.package = pkgs.graphite-cursors;
+  home.pointerCursor.size = 24;
+
+  # Also apply cursor to gtk configuration
   home.pointerCursor.gtk.enable = true;
 }
