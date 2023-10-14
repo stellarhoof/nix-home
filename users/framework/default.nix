@@ -9,6 +9,7 @@
     ./fontconfig.nix
     ./gtk.nix
     ./programs/firefox.nix
+    ./programs/gpg.nix
     ./programs/zathura.nix
     ./wayland.nix
   ];
@@ -23,14 +24,6 @@
   # should be started. Additionally, stop obsolete services from the
   # previous generation.
   systemd.user.startServices = false;
-
-  services.gpg-agent = let ttl = 60480000;
-  in {
-    defaultCacheTtl = ttl;
-    defaultCacheTtlSsh = ttl;
-    maxCacheTtl = ttl;
-    maxCacheTtlSsh = ttl;
-  };
 
   # Whether to enable automatic creation of the XDG user directories.
   # https://wiki.archlinux.org/title/XDG_user_directories

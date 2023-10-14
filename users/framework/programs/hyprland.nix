@@ -264,6 +264,7 @@
       # Applications
       "$mod, Return, exec, foot"
       "$mod, b, exec, firefox"
+      "$mod, p, exec, rofi-pass"
 
       # Application launcher
       "$mod, Space, exec, rofi -show drun"
