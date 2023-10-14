@@ -10,7 +10,7 @@
 
   # GTK font configuration
   gtk.font.size = config.lib.fonts.sans.size;
-  gtk.font.name = with config.lib.fonts.sans; "${name} ${style.normal}";
+  gtk.font.name = with config.lib.fonts.sans; "${name} ${regular}";
 
   # Names are taken from $XDG_DATA_DIRS/themes
   # https://blogs.gnome.org/alatiera/2021/09/18/the-truth-they-are-not-telling-you-about-themes/

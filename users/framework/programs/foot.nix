@@ -3,15 +3,12 @@
 
   programs.foot.settings = with config.lib.fonts; {
     main = {
-      font =
-        "${mono.name}:style=${mono.style.normal}:size=${toString mono.size}";
-      font-bold =
-        "${mono.name}:style=${mono.style.bold}:size=${toString mono.size}";
+      font = "${mono.name}:style=${mono.regular}:size=${toString mono.size}";
+      font-bold = "${mono.name}:style=${mono.bold}:size=${toString mono.size}";
       font-italic =
-        "${mono.name}:style=${mono.style.italic}:size=${toString mono.size}";
-      font-bold-italic = "${mono.name}:style=${mono.style.bold-italic}:size=${
-          toString mono.size
-        }";
+        "${mono.name}:style=${mono.italic}:size=${toString mono.size}";
+      font-bold-italic =
+        "${mono.name}:style=${mono.bold-italic}:size=${toString mono.size}";
     };
     colors = with config.colorScheme.colors; rec {
       background = base00;
