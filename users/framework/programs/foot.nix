@@ -1,36 +1,36 @@
 { config, ... }: {
   programs.foot.enable = true;
 
-  programs.foot.settings = with config.lib.fonts; {
+  programs.foot.settings = with config.lib.fonts.mono; {
     main = {
-      font = "${mono.name}:style=${mono.regular}:size=${toString mono.size}";
-      font-bold = "${mono.name}:style=${mono.bold}:size=${toString mono.size}";
-      font-italic =
-        "${mono.name}:style=${mono.italic}:size=${toString mono.size}";
-      font-bold-italic =
-        "${mono.name}:style=${mono.bold-italic}:size=${toString mono.size}";
+      font = "${name}:style=${regular}:size=${toString size}";
+      font-bold = "${name}:style=${bold}:size=${toString size}";
+      font-italic = "${name}:style=${italic}:size=${toString size}";
+      font-bold-italic = "${name}:style=${bold-italic}:size=${toString size}";
     };
+
+    # Assumes a light colorscheme
     colors = with config.colorScheme.colors; rec {
       background = base00;
       foreground = base05;
       # ANSI colors
-      regular0 = base00; # black
+      regular0 = base05; # black
       regular1 = base08; # red
       regular2 = base0B; # green
       regular3 = base0A; # yellow
-      regular4 = base0D; # blue
-      regular5 = base0E; # magenta
+      regular4 = base0E; # blue
+      regular5 = base0D; # magenta
       regular6 = base0C; # cyan
-      regular7 = base05; # white
+      regular7 = base00; # white
       # Bright ANSI colors
-      bright0 = base03; # black
-      bright1 = base09; # red
-      bright2 = base01; # green
-      bright3 = base02; # yellow
-      bright4 = base04; # blue
-      bright5 = base06; # magenta
-      bright6 = base0F; # cyan
-      bright7 = base06; # white
+      bright0 = base05; # black
+      bright1 = base08; # red
+      bright2 = base0B; # green
+      bright3 = base0A; # yellow
+      bright4 = base0E; # blue
+      bright5 = base0D; # magenta
+      bright6 = base0C; # cyan
+      bright7 = base00; # white
     };
   };
 }

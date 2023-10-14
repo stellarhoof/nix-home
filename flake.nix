@@ -14,11 +14,11 @@
     # base16 colorschemes
     nix-colors.url = "github:misterio77/nix-colors";
   };
-  outputs = { self, nixpkgs, home-manager, nix-colors }: {
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     homeConfigurations."ah@framework" =
       home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "x86_64-linux"; };
-        extraSpecialArgs = { inherit nix-colors; };
+        extraSpecialArgs = { inherit inputs; };
         modules = [
           {
             home.stateVersion = "23.05";
@@ -31,7 +31,7 @@
 
     homeConfigurations."ah@mbpro" = home-manager.lib.homeManagerConfiguration {
       pkgs = import nixpkgs { system = "aarch64-darwin"; };
-      extraSpecialArgs = { inherit nix-colors; };
+      extraSpecialArgs = { inherit inputs; };
       modules = [
         {
           home.stateVersion = "23.05";
