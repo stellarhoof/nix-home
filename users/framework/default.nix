@@ -10,6 +10,7 @@
     ./gtk.nix
     ./programs/firefox.nix
     ./programs/gpg.nix
+    ./programs/vimiv.nix
     ./programs/zathura.nix
     ./wayland.nix
   ];

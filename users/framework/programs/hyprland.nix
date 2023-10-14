@@ -204,15 +204,15 @@
     # https://github.com/xkbcommon/libxkbcommon/blob/master/include/xkbcommon/xkbcommon-keysyms.h for names of keysyms.
     bind = [
       # Exit compositor
-      "$mod Shift, Backspace, exit"
+      "$mod shift, backspace, exit"
 
       # Kill active window
-      "$mod, Backspace, killactive"
+      "$mod, backspace, killactive"
 
       # Group layout
-      "$mod, t, hy3:makegroup, tab"
-      "$mod, Bracketleft, hy3:focustab, left"
-      "$mod, Bracketright, hy3:focustab, right"
+      "$mod, t, hy3:changegroup, toggletab"
+      "$mod, bracketleft, hy3:focustab, left"
+      "$mod, bracketright, hy3:focustab, right"
 
       # Move focus across windows
       "$mod, h, movefocus, l"
@@ -221,16 +221,16 @@
       "$mod, j, movefocus, d"
 
       # Move windows
-      "$mod SHIFT, h, movewindow, l"
-      "$mod SHIFT, l, movewindow, r"
-      "$mod SHIFT, k, movewindow, u"
-      "$mod SHIFT, j, movewindow, d"
+      "$mod shift, h, movewindow, l"
+      "$mod shift, l, movewindow, r"
+      "$mod shift, k, movewindow, u"
+      "$mod shift, j, movewindow, d"
 
       # Toggle floating state
-      "$mod, f, togglefloating"
+      "$mod shift, f, togglefloating"
 
       # Toggle fullscreen state
-      "$mod SHIFT, f, fullscreen"
+      "$mod, f, fullscreen"
 
       # Switch workspaces
       "$mod, 1, workspace, 1"
@@ -244,38 +244,38 @@
       "$mod, 9, workspace, 9"
 
       # Move active window to workspace
-      "$mod SHIFT, 1, movetoworkspacesilent, 1"
-      "$mod SHIFT, 2, movetoworkspacesilent, 2"
-      "$mod SHIFT, 3, movetoworkspacesilent, 3"
-      "$mod SHIFT, 4, movetoworkspacesilent, 4"
-      "$mod SHIFT, 5, movetoworkspacesilent, 5"
-      "$mod SHIFT, 6, movetoworkspacesilent, 6"
-      "$mod SHIFT, 7, movetoworkspacesilent, 7"
-      "$mod SHIFT, 8, movetoworkspacesilent, 8"
-      "$mod SHIFT, 9, movetoworkspacesilent, 9"
+      "$mod shift, 1, movetoworkspacesilent, 1"
+      "$mod shift, 2, movetoworkspacesilent, 2"
+      "$mod shift, 3, movetoworkspacesilent, 3"
+      "$mod shift, 4, movetoworkspacesilent, 4"
+      "$mod shift, 5, movetoworkspacesilent, 5"
+      "$mod shift, 6, movetoworkspacesilent, 6"
+      "$mod shift, 7, movetoworkspacesilent, 7"
+      "$mod shift, 8, movetoworkspacesilent, 8"
+      "$mod shift, 9, movetoworkspacesilent, 9"
 
       # Switch to next empty workspace
       "$mod, 0, workspace, empty"
 
       # Switch to prev/next workspace
-      "$mod, Comma, workspace, e-1"
-      "$mod, Period, workspace, e+1"
+      "$mod, comma, workspace, e-1"
+      "$mod, period, workspace, e+1"
 
       # Applications
-      "$mod, Return, exec, foot"
+      "$mod, return, exec, foot"
       "$mod, b, exec, firefox"
       "$mod, p, exec, rofi-pass"
 
       # Application launcher
-      "$mod, Space, exec, rofi -show drun"
+      "$mod, space, exec, rofi -show drun"
 
-      "$mod SHIFT, Space, exec, ${
+      "$mod shift, space, exec, ${
         pkgs.writeShellScript "program-runner" ''
           rofi -show run -run-shell-command "{terminal} --hold {cmd}"
         ''
       }"
 
-      "$mod, Minus, exec, ${
+      "$mod, minus, exec, ${
         pkgs.writeShellScript "home-switch" ''
           foot --title=home-switch ${
             pkgs.writeShellScript "home-switch" ''

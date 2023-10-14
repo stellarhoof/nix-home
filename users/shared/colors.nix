@@ -55,7 +55,7 @@ let
       base04 = "#171a2f";
       base05 = "#36384a";
       base06 = "#4c4f69";
-      base07 = "#acb0be";
+      base07 = "#bbc0ce";
       base08 = "#d20f39";
       base09 = "#e64553";
       base0A = "#df8e1d";
