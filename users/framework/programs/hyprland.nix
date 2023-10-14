@@ -162,8 +162,8 @@
       #     ↳ specialWorkspace - styles: same as workspaces
       animation = [
         "windows, 1, 4, custom, slide"
-        "fade, 1, 7, default"
-        "workspaces, 1, 6, custom, slidevert"
+        "fade, 1, 4, default"
+        "workspaces, 1, 4, custom, slidevert"
       ];
     };
 
