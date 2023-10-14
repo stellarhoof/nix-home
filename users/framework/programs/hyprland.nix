@@ -1,35 +1,15 @@
 # TODO: Look into https://github.com/outfoxxed/hy3 for more layout options
 
 { pkgs, config, ... }: {
-  home.sessionVariables = {
-    # https://wiki.hyprland.org/Configuring/Environment-variables/#xdg-specifications
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    # Not sure what libset is used for but it fixes an error on Hyprland
-    # initialization.
-    LIBSEAT_BACKEND = "logind";
-  };
+  # Not sure what libset is used for but it fixes an error on Hyprland
+  # initialization.
+  home.sessionVariables.LIBSEAT_BACKEND = "logind";
 
+  # Enable hyprland, a tiling wayland compositor
   wayland.windowManager.hyprland.enable = true;
 
-  # This will help with trying to use wayland apps exclusively.
+  # This will help with trying to use wayland apps exclusively
   wayland.windowManager.hyprland.xwayland.enable = false;
-
-  # There are lots of important env vars in `home.sessionVariables` that are not
-  # available at the time Hyprland is started. This is a workaround to make sure
-  # that Hyprland inherits the environment from fish.
-  # See https://github.com/nix-community/home-manager/issues/2659
-  programs.fish.loginShellInit = ''
-    if test (tty) = /dev/tty1; or test (tty) = /dev/pts/0
-      exec Hyprland
-    end
-  '';
-
-  xdg.configFile."hypr/hyprpaper.conf".text = ''
-    ipc = off
-    preload = ${../wallpapers/default.png}
-    wallpaper = ,${../wallpapers/default.png}
-  '';
 
   wayland.windowManager.hyprland.extraConfig = ''
     # Using another env var in `home.sessionVariables` is futile so instead set
@@ -41,7 +21,7 @@
     # exec-once will not be executed on reloads
     exec-once = with pkgs;
       (toString (writeShellScript "hyprland-init" ''
-        ${hyprpaper}/bin/hyprpaper &
+        hyprpaper &
         waybar &
       ''));
 
@@ -152,6 +132,9 @@
     windowrulev2 = [
       "float,title:(home-switch)"
 
+      # Always open firefox in workspace 1
+      "workspace 1,class:(firefox)"
+
       # Center and resize open file dialogs
       "center,title:(Open File)"
       "size 50% 50%,title:(Open File)"
@@ -166,7 +149,6 @@
     # binde repeats keypresses
     binde = [
       # https://wiki.archlinux.org/title/WirePlumber#Keyboard_volume_control
-      # TODO: Leave key pressed and repeat action on volume raise/lower
       # TODO: Play audio sound when changing volume
       # TODO: Send notification when changing volume
       ",XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+"
