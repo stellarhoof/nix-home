@@ -37,8 +37,36 @@
   # Fish, the friendly shell, much more usable than bash.
   programs.fish.enable = true;
 
-  # Disable fish greeting
-  programs.fish.interactiveShellInit = "set fish_greeting";
+  programs.fish.interactiveShellInit = ''
+    # Disable fish greeting
+    set fish_greeting
+
+    # Display system information
+    ${pkgs.fastfetch}/bin/fastfetch --structure ${
+      pkgs.lib.concatStringsSep ":" [
+        # Title
+        "Title"
+        # Hardware/Software
+        "Separator"
+        "Bios"
+        "Board"
+        "Monitor"
+        "OS"
+        "Kernel"
+        "Bluetooth"
+        # Stats
+        "Separator"
+        "LocalIp"
+        "Uptime"
+        "Memory"
+        "Disk"
+        "Battery"
+        # Colors
+        "Break"
+        "Colors"
+      ]
+    }
+  '';
 
   # Let home-manager install and manage itself.
   programs.home-manager.enable = true;
