@@ -14,7 +14,7 @@ let
   defaults = {
     sans = styles // { inherit size; };
     serif = styles // { inherit size; };
-    mono = styles // { size = size + 1; };
+    mono = styles // { size = size + 0.5; };
   };
 
   emoji.nerdfonts = {

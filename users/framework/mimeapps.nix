@@ -1,3 +1,44 @@
+/* https://wiki.archlinux.org/title/XDG_MIME_Applications
+
+    # MIME Database
+
+    https://specifications.freedesktop.org/shared-mime-info-spec/shared-mime-info-spec-latest.html
+
+    Files: `~/.nix-profile/share/mime`
+
+    This specification describes:
+
+    - A standard for applications to install new MIME types and related information.
+    - A standard for getting the MIME type for a file.
+    - A standard for getting information about a MIME type.
+    - Standard locations for all the files, and methods of resolving conflicts.
+
+    # Desktop Entries
+
+    https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
+
+    Files: `~/.nix-profile/share/applications`
+
+    This spec describes files with information about an application such as the
+    name, icon, description, and supported MIME types. These files are used for
+    application launchers and for associating default applications to MIME types.
+
+    # MIME Applications
+
+    https://specifications.freedesktop.org/mime-apps-spec/mime-apps-spec-latest.html
+
+    Files: `~/.config/mimeapps.list` and `~/.local/share/applications/mimeapps.list`
+
+    - The MIME Database is the single truth of MIME types.
+    - Applications annouce their supported MIME types via desktop entries.
+
+    This specification solves the remaining issues:
+
+    - Which application should open a file by default.
+    - How to let the user change the default application.
+    - How to let the user add or remove associations between applications and mimetypes.
+*/
+
 { config, lib, pkgs, ... }:
 let
   mimetypes = {
@@ -160,22 +201,49 @@ let
 
   browser = if config.programs.brave.enable then "brave" else "chromium";
 in {
-  home.sessionVariables = {
-    BROWSER = browser;
-    TERMINAL = "kitty";
-  };
+  # nixpkgs.overlays = [
+  #   (final: prev: {
+  #     # Mostly to get a version of xdg-utils that has
+  #     # [this fix](https://gitlab.freedesktop.org/xdg/xdg-utils/-/merge_requests/49)
+  #     # applied.
+  #     # Overriding `xdg-utils` itself will cause a bunch of other packages to
+  #     # recompile since this is a dependency of many other packages.
+  #     xdg-utils = prev.xdg-utils.overrideAttrs (old: {
+  #       verson = "v1.2.0-beta1";
+  #       src = pkgs.fetchFromGitLab {
+  #         domain = "gitlab.freedesktop.org";
+  #         owner = "xdg";
+  #         repo = "xdg-utils";
+  #         rev = "v1.2.0-beta1";
+  #         sha256 = "sha256-+SKM3zw6QQwsOTO8jinb5EHgHnsYAMU5AsBzilhChL8=";
+  #       };
+  #       patches = [ ];
+  #     });
+  #   })
+  # ];
+
+  home.packages = with pkgs;
+    [
+      # Utilities for managing XDG MIME apps: https://wiki.archlinux.org/title/Xdg-utils
+      # The useful ones are `xdg-mime`, `xdg-open`, and possibly `xdg-settings`
+      xdg-utils
+    ];
 
   # Manage $XDG_CONFIG_HOME/mimeapps.list. The generated file is read
   # only.
   xdg.mimeApps.enable = true;
 
-  xdg.mimeApps.defaultApplications = with mimetypes;
-    { } // (defaultMimeApp text "nvim.desktop")
-    // (defaultMimeApp video "mpv.desktop")
-    // (defaultMimeApp audio "mpv.desktop")
-    // (defaultMimeApp image "feh.desktop")
-    // (defaultMimeApp web "${browser}.desktop") // {
-      "application/pdf" = "org.pwmt.zathura.desktop";
-      "application/epub+zip" = "calibre-ebook-viewer.desktop";
-    };
+  xdg.mimeApps.defaultApplications = {
+    "x-scheme-handler/magnet" = [ "transmission-gtk.desktop" ];
+  };
+
+  # xdg.mimeApps.defaultApplications = with mimetypes;
+  #   { } // (defaultMimeApp text "nvim.desktop")
+  #   // (defaultMimeApp video "mpv.desktop")
+  #   // (defaultMimeApp audio "mpv.desktop")
+  #   // (defaultMimeApp image "feh.desktop")
+  #   // (defaultMimeApp web "${browser}.desktop") // {
+  #     "application/pdf" = "org.pwmt.zathura.desktop";
+  #     "application/epub+zip" = "calibre-ebook-viewer.desktop";
+  #   };
 }

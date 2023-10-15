@@ -29,6 +29,7 @@
   };
 
   home.packages = with pkgs; [
+    grimblast # Screenshot tool
     hyprpaper # Wallpaper setter
     wl-clipboard # Command line clipboard utilities for wayland
   ];

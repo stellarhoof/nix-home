@@ -37,8 +37,8 @@
             render_text = false
             height = 10
             rounding = 10
-            col.active = rgb(${base0B})
-            col.inactive = rgb(${base02})
+            col.active = rgb(${base00})
+            col.inactive = rgb(${base03})
           }
 
           # Autotiling groups all windows in the workspace
@@ -57,8 +57,10 @@
         waybar &
       ''));
 
-    # Scale the default display to 1.5 its native resolution
-    monitor = ",highres,auto,1.5";
+    # Scale the default display to 1.6 its native resolution
+    # Not sure if it makes a difference but the Framework display's resolution
+    # is 2256x1504, and both 2256/1.6 and 1504/1.6 yield integer results.
+    monitor = ",highres,auto,1.6";
 
     general = with config.colorScheme.colors; {
       layout = "hy3";
@@ -66,8 +68,8 @@
       gaps_out = 10;
       border_size = 2;
       resize_on_border = true;
-      "col.active_border" = "rgb(${base0B})";
-      "col.inactive_border" = "rgb(${base0B})";
+      "col.active_border" = "rgb(${base03})";
+      "col.inactive_border" = "rgb(${base03})";
       "col.group_border" = "rgb(${base0A})";
     };
 
@@ -211,8 +213,10 @@
 
       # Group layout
       "$mod, t, hy3:changegroup, toggletab"
-      "$mod, bracketleft, hy3:focustab, left"
-      "$mod, bracketright, hy3:focustab, right"
+      "$mod, bracketleft, hy3:focustab, left, wrap"
+      "$mod, bracketright, hy3:focustab, right, wrap"
+      "$mod shift, bracketleft, hy3:movewindow, left"
+      "$mod shift, bracketright, hy3:movewindow, right"
 
       # Move focus across windows
       "$mod, h, movefocus, l"
@@ -261,6 +265,9 @@
       "$mod, comma, workspace, e-1"
       "$mod, period, workspace, e+1"
 
+      # Print entire screen
+      ",print, exec, grimblast save output"
+
       # Applications
       "$mod, return, exec, foot"
       "$mod, b, exec, firefox"
@@ -279,7 +286,7 @@
         pkgs.writeShellScript "home-switch" ''
           foot --title=home-switch ${
             pkgs.writeShellScript "home-switch" ''
-              home-manager switch
+              home-manager switch -b bak
               read -p "Press ENTER to close..."
             ''
           }

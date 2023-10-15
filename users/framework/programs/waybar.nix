@@ -101,13 +101,13 @@ in {
       /* Buttons should inherit color from their parent damnit! */
       button, button box, button label { color: inherit; }
 
-      ${makeModuleGroup base0B [ "workspaces" "window" ]}
+      ${makeModuleGroup base02 [ "workspaces" "window" ]}
 
-      ${makeModuleGroup base0B [ "cpu" "memory" "battery" ]}
+      ${makeModuleGroup base02 [ "cpu" "memory" "battery" ]}
 
-      ${makeModuleGroup base0B [ "backlight" "wireplumber" "network" ]}
+      ${makeModuleGroup base02 [ "backlight" "wireplumber" "network" ]}
 
-      ${makeModuleGroup base0B [ "clock" ]}
+      ${makeModuleGroup base02 [ "clock" ]}
 
       #workspaces button:not(:last-child) {
         margin-right: ${toString (gap * 1.5)}px;

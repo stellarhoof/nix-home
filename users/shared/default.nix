@@ -18,7 +18,6 @@
   home.packages = with pkgs; [
     _7zz # File archiver
     dua # Disk usage analyzer
-    emacs # Emacs
     fd # Faster find implementation
     file # Determine file type
     htop # Interactive process viewer
