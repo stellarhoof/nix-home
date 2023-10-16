@@ -60,8 +60,8 @@
     fish_add_path -maP /usr/local/bin /usr/bin /bin /usr/sbin /sbin
   '';
 
-  # TODO: Should this be changed to services.gpg-agent?
   programs.gpg.enable = true;
+
   # There are services.gpg-agent.* options, but those try to start gpg-agent
   # through systemd, and OSX's launchd does it automatically
   home.file.".gnupg/gpg-agent.conf".text = ''

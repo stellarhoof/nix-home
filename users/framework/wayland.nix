@@ -1,8 +1,17 @@
-{ pkgs, ... }: {
-  imports =
-    [ ./programs/foot.nix ./programs/hyprland.nix ./programs/waybar.nix ];
+{ pkgs, config, ... }: {
+  imports = [
+    ./programs/foot.nix
+    ./programs/hyprland.nix
+    ./programs/rofi-wayland.nix
+    # ./programs/sway.nix
+    ./programs/waybar.nix
+  ];
 
   home.sessionVariables = {
+    # https://wiki.hyprland.org/Configuring/Environment-variables/#xdg-specifications
+    XDG_CURRENT_DESKTOP = "Hyprland";
+    XDG_SESSION_DESKTOP = "Hyprland";
+
     # Hint electron apps to use Wayland
     NIXOS_OZONE_WL = "1";
 
@@ -19,10 +28,27 @@
     CLUTTER_BACKEND = "wayland";
   };
 
-  home.packages = with pkgs;
-    [
-      wl-clipboard # Command line clipboard utilities for wayland
-    ];
+  home.packages = with pkgs; [
+    grimblast # Screenshot tool
+    hyprpaper # Wallpaper setter
+    wl-clipboard # Command line clipboard utilities for wayland
+  ];
+
+  xdg.configFile."hypr/hyprpaper.conf".text = ''
+    ipc = off
+    preload = ${./wallpapers/default.png}
+    wallpaper = ,${./wallpapers/default.png}
+  '';
+
+  # There are lots of important env vars in `home.sessionVariables` that are not
+  # available at the time Hyprland is started. This is a workaround to make sure
+  # that Hyprland inherits the environment from fish.
+  # See https://github.com/nix-community/home-manager/issues/2659
+  programs.fish.loginShellInit = ''
+    if test (tty) = /dev/tty1; or test (tty) = /dev/pts/0
+      exec ${config.home.sessionVariables.XDG_CURRENT_DESKTOP}
+    end
+  '';
 
   # Simple clipboard manager for wayland
   services.clipman.enable = true;

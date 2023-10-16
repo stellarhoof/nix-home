@@ -10,14 +10,12 @@
 
   # GTK font configuration
   gtk.font.size = config.lib.fonts.sans.size;
-  gtk.font.name = with config.lib.fonts.sans; "${name} ${style.normal}";
+  gtk.font.name = with config.lib.fonts.sans; "${name} ${regular}";
 
   # Names are taken from $XDG_DATA_DIRS/themes
   # https://blogs.gnome.org/alatiera/2021/09/18/the-truth-they-are-not-telling-you-about-themes/
   gtk.theme.name = "adw-gtk3";
   gtk.theme.package = pkgs.adw-gtk3;
-  # Maybe required
-  # home.packages = with pkgs; [ gnome-themes-extra gtk-engine-murrine ];
 
   # Names are taken from $XDG_DATA_DIRS/icons
   gtk.iconTheme.name = "Papirus";
@@ -26,40 +24,46 @@
   # Default location is under $HOME
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
+  # # Get nice themes via this app
+  # home.packages = with pkgs; [ gradience ];
+
+  # NOTE: These are catppuccin colors. In the future I'll come up with a
+  # not-base16 theming solution
+  # https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/named-colors.html
   gtk.gtk3.extraCss = with config.colorScheme.colors; ''
-    @define-color accent_color #3b4261;
-    @define-color accent_bg_color #3b4261;
-    @define-color accent_fg_color #e1e2e7;
-    @define-color destructive_color #D93025;
-    @define-color destructive_bg_color #D93025;
-    @define-color destructive_fg_color #e1e2e7;
-    @define-color success_color #0F9D58;
-    @define-color success_bg_color #0F9D58;
-    @define-color success_fg_color #e1e2e7;
-    @define-color warning_color #F4B400;
-    @define-color warning_bg_color #F4B400;
-    @define-color warning_fg_color rgba(0, 0, 0, 0.87);
-    @define-color error_color #D93025;
-    @define-color error_bg_color #D93025;
-    @define-color error_fg_color #e1e2e7;
-    @define-color window_bg_color #e1e2e7;
-    @define-color window_fg_color rgba(0, 0, 0, 0.87);
-    @define-color view_bg_color #e1e2e7;
-    @define-color view_fg_color rgba(0, 0, 0, 0.87);
-    @define-color headerbar_bg_color #343b58;
-    @define-color headerbar_fg_color #e1e2e7;
-    @define-color headerbar_border_color rgba(0, 0, 0, 0.12);
+    @define-color accent_color rgb(32, 159, 181);
+    @define-color accent_bg_color rgb(30, 102, 245);
+    @define-color accent_fg_color rgb(239, 241, 245);
+    @define-color destructive_color rgb(210, 15, 57);
+    @define-color destructive_bg_color rgb(230, 69, 83);
+    @define-color destructive_fg_color rgb(239, 241, 245);
+    @define-color success_color rgb(23, 146, 153);
+    @define-color success_bg_color rgb(64, 160, 43);
+    @define-color success_fg_color rgb(239, 241, 245);
+    @define-color warning_color rgb(223, 142, 29);
+    @define-color warning_bg_color rgb(254, 100, 11);
+    @define-color warning_fg_color rgb(76, 79, 105);
+    @define-color error_color rgb(210, 15, 57);
+    @define-color error_bg_color rgb(230, 69, 83);
+    @define-color error_fg_color rgb(239, 241, 245);
+    @define-color window_bg_color rgb(239, 241, 245);
+    @define-color window_fg_color rgb(76, 79, 105);
+    @define-color view_bg_color rgb(230, 233, 239);
+    @define-color view_fg_color rgb(76, 79, 105);
+    @define-color headerbar_bg_color rgb(220, 224, 232);
+    @define-color headerbar_fg_color rgb(76, 79, 105);
+    @define-color headerbar_border_color rgb(156, 160, 176);
     @define-color headerbar_backdrop_color @window_bg_color;
     @define-color headerbar_shade_color rgba(0, 0, 0, 0.07);
-    @define-color card_bg_color #e1e2e7;
-    @define-color card_fg_color rgba(0, 0, 0, 0.87);
+    @define-color card_bg_color rgb(230, 233, 239);
+    @define-color card_fg_color rgb(76, 79, 105);
     @define-color card_shade_color rgba(0, 0, 0, 0.07);
-    @define-color dialog_bg_color #e1e2e7;
-    @define-color dialog_fg_color rgba(0, 0, 0, 0.87);
-    @define-color popover_bg_color #e1e2e7;
-    @define-color popover_fg_color rgba(0, 0, 0, 0.87);
-    @define-color shade_color rgba(0, 0, 0, 0.07);
-    @define-color scrollbar_outline_color #e1e2e7;
+    @define-color dialog_bg_color #e6e9ef;
+    @define-color dialog_fg_color rgb(76, 79, 105);
+    @define-color popover_bg_color #e6e9ef;
+    @define-color popover_fg_color rgb(76, 79, 105);
+    @define-color shade_color rgba(0,0,0,0.07);
+    @define-color scrollbar_outline_color rgb(255,255,255);
     @define-color blue_1 #99c1f1;
     @define-color blue_2 #62a0ea;
     @define-color blue_3 #3584e4;

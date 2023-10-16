@@ -1,10 +1,10 @@
 # TODO: Look into config.specialisation
 
-{ config, lib, pkgs, nix-colors, ... }: {
+{ config, lib, pkgs, ... }: {
   imports = [
-    nix-colors.homeManagerModules.default
-    ./fonts.nix
     # ./smartprocure.nix
+    ./colors.nix
+    ./fonts.nix
     ./programs/direnv.nix
     ./programs/eza.nix
     ./programs/fzf.nix
@@ -18,7 +18,6 @@
   home.packages = with pkgs; [
     _7zz # File archiver
     dua # Disk usage analyzer
-    emacs # Emacs
     fd # Faster find implementation
     file # Determine file type
     htop # Interactive process viewer
@@ -27,7 +26,7 @@
     nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC
-    trash-cli # Trash can
+    trash-cli # Implements the XDG trash can spec
     unrar # File archiver
     unzip # File archiver
     wget # Non-interactive web downloader
@@ -37,8 +36,36 @@
   # Fish, the friendly shell, much more usable than bash.
   programs.fish.enable = true;
 
-  # Disable fish greeting
-  programs.fish.interactiveShellInit = "set fish_greeting";
+  programs.fish.interactiveShellInit = ''
+    # Disable fish greeting
+    set fish_greeting
+
+    # Display system information
+    ${pkgs.fastfetch}/bin/fastfetch --structure ${
+      pkgs.lib.concatStringsSep ":" [
+        # Title
+        "Title"
+        # Hardware/Software
+        "Separator"
+        "Bios"
+        "Board"
+        "Monitor"
+        "OS"
+        "Kernel"
+        "Bluetooth"
+        # Stats
+        "Separator"
+        "LocalIp"
+        "Uptime"
+        "Memory"
+        "Disk"
+        "Battery"
+        # Colors
+        "Break"
+        "Colors"
+      ]
+    }
+  '';
 
   # Let home-manager install and manage itself.
   programs.home-manager.enable = true;
@@ -69,11 +96,15 @@
   # Simple aliases that are compatible across all shells.
   home.shellAliases = rec {
     cp = "cp -i";
-    rm = "rm -I";
     df = "df -h";
     du = "dua";
     less = "less -R";
     diff = "diff --color=auto";
+    rm = "echo 'Use `trash-put` instead!'; false";
+    te = "trash-empty";
+    tl = "trash-list";
+    tp = "trash-put";
+    tr = "trash-rm";
   };
 
   home.file.".local/bin" = {
@@ -119,46 +150,5 @@
     STACK_ROOT = "${dataHome}/stack";
     WEECHAT_HOME = "${configHome}/weechat";
     WGETRC = "${configHome}/wgetrc";
-  };
-
-  # [base16](https://github.com/chriskempson/base16/blob/main/styling.md)
-  colorScheme = {
-    slug = "tokyo-night";
-    name = "Tokyo Night";
-    author = "Folke Lemaitre (https://github.com/folke/tokyonight.nvim)";
-    colors = {
-      # Default background
-      base00 = "1a1b26";
-      # Lighter background (status bars, line number, folding marks, ...)
-      base01 = "7aa2f7";
-      # Selection background
-      base02 = "283457";
-      # Comments, invisibles, line highlighting
-      base03 = "444b6a";
-      # Dark foreground (status bars)
-      base04 = "16161e";
-      # Default foreground, caret, delimiters, operators
-      base05 = "c0caf5";
-      # Light foreground
-      base06 = "c0caf5";
-      # Light background
-      base07 = "292e42";
-      # Variables, XML tags, markup link text, markup lists, diff deleted
-      base08 = "f7768e";
-      # Integers, boolean, constants, XML attributes, markup link url
-      base09 = "73daca";
-      # Classes, markup bold, search text background
-      base0A = "e0af68";
-      # Strings, inherited class, markup code, diff inserted
-      base0B = "41a6b5";
-      # Support, regular expressions, escape characters, markup quotes
-      base0C = "7dcfff";
-      # Functions, methods, attribute ids, headings
-      base0D = "7aa2f7";
-      # Keywords, storage, selector, markup italic, diff changed
-      base0E = "bb9af7";
-      # Deprecated, opening/closing embedded language tags
-      base0F = "d18616";
-    };
   };
 }

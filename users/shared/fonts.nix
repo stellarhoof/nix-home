@@ -2,24 +2,24 @@
 let
   size = 10;
 
+  styles = {
+    regular = "Regular";
+    italic = "Regular Italic";
+    bold = "Bold";
+    bold-italic = "Bold Italic";
+  };
+
   # TODO: The font size is dependent on many things like display resolution,
   # scaling, etc... so it should really be configured per machine.
   defaults = {
-    sans = {
-      inherit size;
-      style.normal = "Regular";
-    };
-    serif = {
-      inherit size;
-      style.normal = "Regular";
-    };
-    mono = {
-      size = size + 1;
-      style.normal = "Regular";
-      style.italic = "Regular Italic";
-      style.bold = "Bold";
-      style.bold-italic = "Bold Italic";
-    };
+    sans = styles // { inherit size; };
+    serif = styles // { inherit size; };
+    mono = styles // { size = size + 0.5; };
+  };
+
+  emoji.nerdfonts = {
+    name = "NerdFontsSymbolsOnly";
+    package = (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; });
   };
 
   sans.lexend = defaults.sans // {
@@ -27,55 +27,30 @@ let
     package = pkgs.lexend;
   };
 
-  sans.IBMPlex = defaults.sans // {
-    name = "IBM Plex Sans";
-    package = pkgs.ibm-plex;
-  };
-
   serif.IBMPlex = defaults.serif // {
     name = "IBM Plex Serif";
     package = pkgs.ibm-plex;
-  };
-
-  icon.nerdfonts = {
-    name = "NerdFontsSymbolsOnly";
-    package = (pkgs.nerdfonts.override { fonts = [ "NerdFontsSymbolsOnly" ]; });
   };
 
   mono.iosevka = defaults.mono // {
     name = "Iosevka Fixed Slab";
     package =
       (pkgs.iosevka-bin.override { variant = "sgr-iosevka-fixed-slab"; });
-    # style.normal = "Medium";
-    # style.italic = "Medium Italic";
-    # style.bold = "Extrabold";
-    # style.bold-italic = "Extrabold Italic";
-  };
-
-  mono.cascadia = defaults.mono // {
-    name = "Cascadia Code";
-    package = pkgs.cascadia-code;
-  };
-
-  mono.IBMPlex = defaults.mono // {
-    name = "IBM Plex Mono";
-    package = pkgs.ibm-plex;
-  };
-
-  mono.fira = defaults.mono // {
-    name = "Fira Code";
-    package = pkgs.fira-code;
+    regular = "Medium";
+    italic = "Medium Italic";
+    bold = "Extrabold";
+    bold-italic = "Extrabold Italic";
   };
 in {
-  lib.fonts.mono = mono.fira;
+  lib.fonts.mono = mono.iosevka;
   lib.fonts.serif = serif.IBMPlex;
-  lib.fonts.sans = sans.IBMPlex;
-  lib.fonts.icon = icon.nerdfonts;
+  lib.fonts.sans = sans.lexend;
+  lib.fonts.emoji = emoji.nerdfonts;
 
   home.packages = with pkgs; [
     config.lib.fonts.mono.package
     config.lib.fonts.sans.package
     config.lib.fonts.serif.package
-    config.lib.fonts.icon.package
+    config.lib.fonts.emoji.package
   ];
 }
