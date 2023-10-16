@@ -16,6 +16,9 @@
 
   home.sessionPath = [ "${config.home.homeDirectory}/.docker/bin" ];
 
+  # Manage $XDG_* variables
+  xdg.enable = true;
+
   # In linux, neovim is provided at the system level but in MacOS it's not, so
   # we have to manage it at the user level
   programs.neovim.enable = true;
@@ -84,17 +87,33 @@
         paths = config.home.packages;
         pathsToLink = "/Applications";
       };
+      # baseDir="$HOME/Applications/Home Manager Apps"
+      # if [ -d "$baseDir" ]; then
+      #   rm -rf "$baseDir"
+      # fi
+      # mkdir -p "$baseDir"
+      # for appFile in ${apps}/Applications/*; do
+      #   target="$baseDir/$(basename "$appFile")"
+      #   $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
+      #   $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
+      # done
     in lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      baseDir="$HOME/Applications/Home Manager Apps"
-      if [ -d "$baseDir" ]; then
-        rm -rf "$baseDir"
-      fi
-      mkdir -p "$baseDir"
-      for appFile in ${apps}/Applications/*; do
-        target="$baseDir/$(basename "$appFile")"
-        $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
-        $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
-      done
+      toDir="$HOME/Applications/HMApps"
+      fromDir="${apps}/Applications"
+      rm -rf "$toDir"
+      mkdir "$toDir"
+      (
+        cd "$fromDir"
+        for app in *.app; do
+          /usr/bin/osacompile -o "$toDir/$app" -e "do shell script \"open '$fromDir/$app'\""
+          icon="$(/usr/bin/plutil -extract CFBundleIconFile raw "$fromDir/$app/Contents/Info.plist")"
+          if [[ $icon != *".icns" ]]; then
+            icon="$icon.icns"
+          fi
+          mkdir -p "$toDir/$app/Contents/Resources"
+          cp -f "$fromDir/$app/Contents/Resources/$icon" "$toDir/$app/Contents/Resources/applet.icns"
+        done
+      )
     '';
   };
 }

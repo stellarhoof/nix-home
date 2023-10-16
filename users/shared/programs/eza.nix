@@ -17,6 +17,8 @@
   #   ```
   programs.eza.enableAliases = true;
 
+  home.shellAliases = { l = "eza -la"; };
+
   # Extra command line options
   programs.eza.extraOptions = [ "--icons" "--group-directories-first" ];
 
