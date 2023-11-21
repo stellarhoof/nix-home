@@ -20,7 +20,6 @@
     libnotify # Send notifications to a desktop notifications daemon
     # transmission_4-qt # Just to have a QT app
     transmission_4-gtk # BitTorrent downloader
-    # qutebrowser # Try again when fractional scaling doesn't make it look awful
   ];
 
   # Some terminal applications rely on these variables instead of the XDG apps

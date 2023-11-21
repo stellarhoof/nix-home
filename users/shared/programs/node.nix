@@ -3,7 +3,7 @@ let
   # Global npm packages
   NPM_PACKAGES = "${config.xdg.dataHome}/npm";
 in {
-  home.packages = with pkgs; [ nodejs ];
+  home.packages = with pkgs; [ deno nodejs_20 corepack_20 ];
 
   home.sessionPath = [ "${NPM_PACKAGES}/bin" ];
 

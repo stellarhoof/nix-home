@@ -12,6 +12,7 @@
     ./programs/node.nix
     ./programs/pass.nix
     ./programs/python.nix
+    # ./programs/qutebrowser.nix
     ./programs/starship.nix
   ];
 
@@ -39,32 +40,6 @@
   programs.fish.interactiveShellInit = ''
     # Disable fish greeting
     set fish_greeting
-
-    # Display system information
-    ${pkgs.fastfetch}/bin/fastfetch --structure ${
-      pkgs.lib.concatStringsSep ":" [
-        # Title
-        "Title"
-        # Hardware/Software
-        "Separator"
-        "Bios"
-        "Board"
-        "Monitor"
-        "OS"
-        "Kernel"
-        "Bluetooth"
-        # Stats
-        "Separator"
-        "LocalIp"
-        "Uptime"
-        "Memory"
-        "Disk"
-        "Battery"
-        # Colors
-        "Break"
-        "Colors"
-      ]
-    }
   '';
 
   # Let home-manager install and manage itself.

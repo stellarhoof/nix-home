@@ -8,10 +8,7 @@
     })
   ];
 
-  home.shellAliases = {
-    p2 = "python2";
-    p3 = "python3";
-  };
+  home.shellAliases = { p = "python"; };
 
   home.sessionVariables = with config.xdg; {
     # Make Python remember history (default repl sucks)

@@ -52,7 +52,7 @@
 
   programs.fish.loginShellInit = ''
     # Add homebrew path
-    fish_add_path -maP /opt/homebrew/bin
+    fish_add_path -pP /opt/homebrew/bin
 
     # Fish login shells emulate the behavior of `/usr/libexec/path_helper` in
     # MacOS, which is to prepend everything in `/etc/paths` to `$PATH`, which

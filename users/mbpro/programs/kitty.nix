@@ -92,7 +92,7 @@
   programs.kitty.extraConfig = ''
     include themes/furnisher.conf
     font_size 14
-    font_family MonoLisa
+    font_family SF Mono
     modify_font cell_width -1px
     modify_font cell_height 10px
     disable_ligatures always
