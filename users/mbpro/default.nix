@@ -11,7 +11,6 @@
     gnugrep
     openssh
     less
-    cmake
   ];
 
   home.sessionPath = [ "${config.home.homeDirectory}/.docker/bin" ];

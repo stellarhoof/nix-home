@@ -14,12 +14,12 @@
     # base16 colorschemes
     nix-colors.url = "github:misterio77/nix-colors";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.30.0";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Release version has to match installed hyprland version
-    hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
-    hy3.inputs.hyprland.follows = "hyprland";
+    # hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.0";
+    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
+    #
+    # # Release version has to match installed hyprland version
+    # hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
+    # hy3.inputs.hyprland.follows = "hyprland";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     homeConfigurations."ah@framework" =

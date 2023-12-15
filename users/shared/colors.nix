@@ -69,5 +69,5 @@ let
 in {
   imports = [ inputs.nix-colors.homeManagerModules.default ];
 
-  colorScheme = catppuccin;
+  colorScheme = tokyonight;
 }
