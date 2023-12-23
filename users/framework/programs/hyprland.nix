@@ -8,46 +8,47 @@
   # Enable hyprland, a tiling wayland compositor
   wayland.windowManager.hyprland.enable = true;
 
-  # Use the flake provided hyprland package
-  wayland.windowManager.hyprland.package =
-    inputs.hyprland.packages.${pkgs.system}.hyprland;
+  # # Use the flake provided hyprland package
+  # wayland.windowManager.hyprland.package =
+  #   inputs.hyprland.packages.${pkgs.system}.hyprland;
 
   # This will help with trying to use wayland apps exclusively
   wayland.windowManager.hyprland.xwayland.enable = false;
 
-  wayland.windowManager.hyprland.plugins =
-    [ inputs.hy3.packages.${pkgs.system}.hy3 ];
+  # wayland.windowManager.hyprland.plugins =
+  #   [ inputs.hy3.packages.${pkgs.system}.hy3 ];
 
   wayland.windowManager.hyprland.extraConfig =
     with config.colorScheme.colors; ''
       # Using another env var in `home.sessionVariables` is futile so instead set
       # them here.
       env = HYPRLAND_LOG,/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/hyprland.log
-
-      plugin {
-        hy3 {
-          # policy controlling what happens when a node is removed from a group,
-          # leaving only a group
-          # 0 = remove the nested group
-          # 1 = keep the nested group
-          # 2 = keep the nested group only if its parent is a tab group
-          node_collapse_policy = 0
-
-          tabs {
-            render_text = false
-            height = 10
-            rounding = 10
-            col.active = rgb(${base00})
-            col.inactive = rgb(${base03})
-          }
-
-          # Autotiling groups all windows in the workspace
-          autotile {
-            enable = true
-          }
-        }
-      }
     '';
+
+  # This goes into `wayland.windowManager.hyprland.extraConfig`
+  # plugin {
+  #   hy3 {
+  #     # policy controlling what happens when a node is removed from a group,
+  #     # leaving only a group
+  #     # 0 = remove the nested group
+  #     # 1 = keep the nested group
+  #     # 2 = keep the nested group only if its parent is a tab group
+  #     node_collapse_policy = 0
+  #
+  #     tabs {
+  #       render_text = false
+  #       height = 10
+  #       rounding = 10
+  #       col.active = rgb(${base00})
+  #       col.inactive = rgb(${base03})
+  #     }
+  #
+  #     # Autotiling groups all windows in the workspace
+  #     autotile {
+  #       enable = true
+  #     }
+  #   }
+  # }
 
   wayland.windowManager.hyprland.settings = {
     # exec-once will not be executed on reloads
@@ -63,14 +64,13 @@
     monitor = ",highres,auto,1.6";
 
     general = with config.colorScheme.colors; {
-      layout = "hy3";
-      gaps_in = 5;
+      # layout = "hy3";
+      gaps_in = 4;
       gaps_out = 10;
       border_size = 2;
       resize_on_border = true;
       "col.active_border" = "rgb(${base03})";
       "col.inactive_border" = "rgb(${base03})";
-      "col.group_border" = "rgb(${base0A})";
     };
 
     misc = with config.colorScheme.colors; {
@@ -212,11 +212,11 @@
       "$mod, backspace, killactive"
 
       # Group layout
-      "$mod, t, hy3:changegroup, toggletab"
-      "$mod, bracketleft, hy3:focustab, left, wrap"
-      "$mod, bracketright, hy3:focustab, right, wrap"
-      "$mod shift, bracketleft, hy3:movewindow, left"
-      "$mod shift, bracketright, hy3:movewindow, right"
+      # "$mod, t, hy3:changegroup, toggletab"
+      # "$mod, bracketleft, hy3:focustab, left, wrap"
+      # "$mod, bracketright, hy3:focustab, right, wrap"
+      # "$mod shift, bracketleft, hy3:movewindow, left"
+      # "$mod shift, bracketright, hy3:movewindow, right"
 
       # Move focus across windows
       "$mod, h, movefocus, l"

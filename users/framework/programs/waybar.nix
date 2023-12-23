@@ -1,7 +1,7 @@
 { config, lib, ... }:
 let
   # TODO: Share these with compositor
-  gap = 10;
+  gap = 8;
   radius = 5;
 in {
   programs.waybar.enable = true;

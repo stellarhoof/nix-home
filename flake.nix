@@ -5,8 +5,8 @@
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
     # nixpkgs.url = "github:nixos/nixpkgs/nixos-23.05";
+
     home-manager.url = "github:nix-community/home-manager";
     # home-manager.url = "github:nix-community/home-manager/release-23.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
@@ -14,15 +14,15 @@
     # base16 colorschemes
     nix-colors.url = "github:misterio77/nix-colors";
 
-    hyprland.url = "github:hyprwm/Hyprland?ref=v0.30.0";
-    hyprland.inputs.nixpkgs.follows = "nixpkgs";
-
-    # Release version has to match installed hyprland version
-    hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
-    hy3.inputs.hyprland.follows = "hyprland";
-
     neovim.url = "github:neovim/neovim?dir=contrib";
     neovim.inputs.nixpkgs.follows = "nixpkgs";
+
+    # hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.0";
+    # hyprland.inputs.nixpkgs.follows = "nixpkgs";
+
+    # # Release version has to match installed hyprland version
+    # hy3.url = "github:outfoxxed/hy3?ref=hl0.32.0";
+    # hy3.inputs.hyprland.follows = "hyprland";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     homeConfigurations."ah@framework" =
