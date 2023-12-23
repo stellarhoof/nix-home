@@ -20,6 +20,9 @@
     # Release version has to match installed hyprland version
     hy3.url = "github:outfoxxed/hy3?ref=hl0.30.0";
     hy3.inputs.hyprland.follows = "hyprland";
+
+    neovim.url = "github:neovim/neovim?dir=contrib";
+    neovim.inputs.nixpkgs.follows = "nixpkgs";
   };
   outputs = inputs@{ self, nixpkgs, home-manager, ... }: {
     homeConfigurations."ah@framework" =

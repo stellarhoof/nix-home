@@ -18,12 +18,14 @@
 
   home.packages = with pkgs; [
     _7zz # File archiver
+    ast-grep # Structural search/replace
     dua # Disk usage analyzer
     fd # Faster find implementation
     file # Determine file type
     htop # Interactive process viewer
+    jq # Json formatter
     killall # Kill processes by name
-    nix-doc # AST-based documentation search for nix
+    # nix-doc # AST-based documentation search for nix
     nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
     tokei # Count LOC

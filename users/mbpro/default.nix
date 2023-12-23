@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports = [ ../shared/default.nix ./programs/kitty.nix ];
@@ -22,6 +22,7 @@
   # In linux, neovim is provided at the system level but in MacOS it's not, so
   # we have to manage it at the user level
   programs.neovim.enable = true;
+  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
