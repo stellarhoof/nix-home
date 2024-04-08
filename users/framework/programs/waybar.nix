@@ -42,7 +42,7 @@ in {
   }];
 
   # https://docs.gtk.org/gtk3/css-properties.html
-  programs.waybar.style = with config.colorScheme.colors;
+  programs.waybar.style = with config.colorScheme.palette;
     let
       moduleColors = color: ''
         color: shade(#${color}, 0.3);

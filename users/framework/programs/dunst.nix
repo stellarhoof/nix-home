@@ -8,7 +8,7 @@
   };
 
   # Colors are based off of https://github.com/tinted-theming/base16-dunst
-  services.dunst.settings = with config.colorScheme.colors; {
+  services.dunst.settings = with config.colorScheme.palette; {
     global = {
       font = with config.lib.fonts.mono; "${name} ${toString size}";
       dmenu = "${pkgs.dmenu}/bin/dmenu -p dunst";

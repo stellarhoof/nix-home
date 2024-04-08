@@ -7,7 +7,7 @@
     u = "scroll half-up";
   };
 
-  programs.zathura.options = with config.colorScheme.colors;
+  programs.zathura.options = with config.colorScheme.palette;
     with config.lib.fonts; {
       # Show hidden files when opening a document
       show-hidden = true;

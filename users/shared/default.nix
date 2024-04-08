@@ -5,6 +5,7 @@
     # ./smartprocure.nix
     ./colors.nix
     ./fonts.nix
+    ./programs/alacritty.nix
     ./programs/direnv.nix
     ./programs/eza.nix
     ./programs/fzf.nix
@@ -25,8 +26,10 @@
     htop # Interactive process viewer
     jq # Json formatter
     killall # Kill processes by name
+    xorg.lndir # Create a directory of symbolic links
     nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
+    sqlitebrowser # sqlite GUI
     tokei # Count LOC
     trash-cli # Implements the XDG trash can spec
     unrar # File archiver

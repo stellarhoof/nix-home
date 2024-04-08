@@ -32,6 +32,11 @@ let
     package = pkgs.ibm-plex;
   };
 
+  mono.IBMPlex = defaults.mono // {
+    name = "IBM Plex Mono";
+    package = pkgs.ibm-plex;
+  };
+
   mono.iosevka = defaults.mono // {
     name = "Iosevka Fixed Slab";
     package =
@@ -42,7 +47,7 @@ let
     bold-italic = "Extrabold Italic";
   };
 in {
-  lib.fonts.mono = mono.iosevka;
+  lib.fonts.mono = mono.IBMPlex;
   lib.fonts.serif = serif.IBMPlex;
   lib.fonts.sans = sans.lexend;
   lib.fonts.emoji = emoji.nerdfonts;

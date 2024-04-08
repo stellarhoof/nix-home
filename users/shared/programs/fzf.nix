@@ -4,7 +4,7 @@
   programs.fzf.defaultCommand = "rg --files --no-ignore-vcs";
 
   # Colors inspired by https://github.com/tinted-theming/base16-fzf
-  programs.fzf.defaultOptions = with config.colorScheme.colors; [
+  programs.fzf.defaultOptions = with config.colorScheme.palette; [
     "--cycle"
     "--filepath-word"
     "--inline-info"

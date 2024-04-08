@@ -8,7 +8,7 @@
       truncate_to_repo = false;
     };
     nix_shell = { symbol = " "; };
-    git_branch = { symbol = " "; };
+    git_branch = { symbol = " "; };
     format = lib.concatStrings [
       "$username"
       "$hostname"

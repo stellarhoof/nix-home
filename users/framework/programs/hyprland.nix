@@ -19,7 +19,7 @@
   #   [ inputs.hy3.packages.${pkgs.system}.hy3 ];
 
   wayland.windowManager.hyprland.extraConfig =
-    with config.colorScheme.colors; ''
+    with config.colorScheme.palette; ''
       # Using another env var in `home.sessionVariables` is futile so instead set
       # them here.
       env = HYPRLAND_LOG,/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/hyprland.log
@@ -63,7 +63,7 @@
     # is 2256x1504, and both 2256/1.6 and 1504/1.6 yield integer results.
     monitor = ",highres,auto,1.6";
 
-    general = with config.colorScheme.colors; {
+    general = with config.colorScheme.palette; {
       # layout = "hy3";
       gaps_in = 4;
       gaps_out = 10;
@@ -73,7 +73,7 @@
       "col.inactive_border" = "rgb(${base03})";
     };
 
-    misc = with config.colorScheme.colors; {
+    misc = with config.colorScheme.palette; {
       # Disable default Hyprland background/animegirl/logo since we've got a
       # wallpaper program and there's a flash before the wallpaper gets set.
       disable_hyprland_logo = true;
@@ -83,7 +83,7 @@
       background_color = "0x000000";
     };
 
-    decoration = with config.colorScheme.colors; {
+    decoration = with config.colorScheme.palette; {
       rounding = 5;
       dim_inactive = true;
       dim_strength = 0.2;

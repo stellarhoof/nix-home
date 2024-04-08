@@ -9,7 +9,7 @@ in {
     corepack_20
   ];
 
-  home.sessionPath = [ "${NPM_PACKAGES}/bin" ];
+  home.sessionPath = [ "${NPM_PACKAGES}/bin" "./node_modules/.bin" ];
 
   home.shellAliases.y = "yarn";
 

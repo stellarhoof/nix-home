@@ -10,7 +10,7 @@
     };
 
     # Assumes a light colorscheme
-    colors = with config.colorScheme.colors; rec {
+    colors = with config.colorScheme.palette; rec {
       background = base00;
       foreground = base05;
       # ANSI colors

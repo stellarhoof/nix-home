@@ -8,6 +8,9 @@
   # Github CLI tool
   programs.gh.enable = true;
 
+  # Workaround for https://github.com/nix-community/home-manager/issues/4744
+  programs.gh.settings.version = 1;
+
   # What protocol to use when performing git operations.
   programs.gh.settings.git_protocol = "ssh";
 

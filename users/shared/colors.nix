@@ -23,7 +23,7 @@ let
     slug = "tokyo-night";
     name = "Tokyo Night";
     author = "Folke Lemaitre (https://github.com/folke/tokyonight.nvim)";
-    colors = {
+    palette = {
       base00 = "#1a1b26";
       base01 = "#7aa2f7";
       base02 = "#283457";
@@ -47,7 +47,7 @@ let
     slug = "catppuccin-latte";
     name = "Catppuccin Latte";
     author = "Catppuccin (https://github.com/catppuccin/catppuccin)";
-    colors = {
+    palette = {
       base00 = "#eff1f5";
       base01 = "#ccd0da";
       base02 = "#acb0be";

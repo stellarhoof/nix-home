@@ -30,7 +30,7 @@
   # NOTE: These are catppuccin colors. In the future I'll come up with a
   # not-base16 theming solution
   # https://gnome.pages.gitlab.gnome.org/libadwaita/doc/main/named-colors.html
-  gtk.gtk3.extraCss = with config.colorScheme.colors; ''
+  gtk.gtk3.extraCss = with config.colorScheme.palette; ''
     @define-color accent_color rgb(32, 159, 181);
     @define-color accent_bg_color rgb(30, 102, 245);
     @define-color accent_fg_color rgb(239, 241, 245);

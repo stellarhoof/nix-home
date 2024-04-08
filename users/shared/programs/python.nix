@@ -3,7 +3,7 @@
     black
     isort
     (python3Packages.python.buildEnv.override {
-      extraLibs = with python3Packages; [ pytest pymongo pydash ];
+      extraLibs = with python3Packages; [ pytest pymongo ];
       ignoreCollisions = true;
     })
   ];
