@@ -21,12 +21,41 @@
   # In linux, neovim is provided at the system level but in MacOS it's not, so
   # we have to manage it at the user level
   programs.neovim.enable = true;
-  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
   programs.neovim.defaultEditor = true;
   programs.neovim.viAlias = true;
   programs.neovim.vimAlias = true;
   programs.neovim.withPython3 = false;
   programs.neovim.withRuby = false;
+  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
+
+  # See https://github.com/pysan3/Norg-Tutorial/blob/main/MIGRATION-v8.md#nixos
+  # and https://github.com/benlubas/nix-config/blob/af644f0c157182c5f5e033959ca68db968c5dc38/programs/neovim.nix
+  # let
+  #   binpath = lib.makeBinPath (with pkgs; [
+  #     lua # required for luarocks.nvim to work
+  #     # ... other language servers and stuff only nvim needs
+  #   ]);
+  #   neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
+  #     # ... whatever else you normally have here
+  #     customRC = "luafile ~/.config/nvim/init.lua";
+  #   };
+  #   fullConfig = (neovimConfig // {
+  #     wrapperArgs = lib.escapeShellArgs neovimConfig.wrapperArgs
+  #       + " --prefix PATH : ${binpath}"; # this is the important part!
+  #   });
+  # in {
+  #   nixpkgs.overlays = [
+  #     (_: super: {
+  #       neovim-custom = pkgs.wrapNeovimUnstable
+  #         (super.neovim-unwrapped.overrideAttrs (oldAttrs: {
+  #           buildInputs = oldAttrs.buildInputs ++ [ super.tree-sitter ];
+  #         })) fullConfig;
+  #     })
+  #   ];
+  #   environment.systemPackages = with pkgs; [
+  #     neovim-custom
+  #   ];
+  # }
 
   # Not shared because it's already enabled in nixos at the system level.
   # Provides a command `nix-locate` to locate the package providing a certain

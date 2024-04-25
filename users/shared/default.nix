@@ -20,13 +20,16 @@
   home.packages = with pkgs; [
     _7zz # File archiver
     ast-grep # Structural search/replace
+    bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
     dua # Disk usage analyzer
     fd # Faster find implementation
     file # Determine file type
+    gnused # GNU sed, a batch stream editor
+    (writeShellScriptBin "gsed"
+      ''exec ${gnused}/bin/sed "$@"'') # So nvim-spectre can work
     htop # Interactive process viewer
     jq # Json formatter
     killall # Kill processes by name
-    xorg.lndir # Create a directory of symbolic links
     nixfmt # Nix language formatter
     qrencode # Encode input data in a QR code and save as image
     sqlitebrowser # sqlite GUI
@@ -35,6 +38,7 @@
     unrar # File archiver
     unzip # File archiver
     wget # Non-interactive web downloader
+    xorg.lndir # Create a directory of symbolic links
     youtube-dl # Web video downloader
   ];
 

@@ -39,8 +39,7 @@ let
 
   mono.iosevka = defaults.mono // {
     name = "Iosevka Fixed Slab";
-    package =
-      (pkgs.iosevka-bin.override { variant = "sgr-iosevka-fixed-slab"; });
+    package = (pkgs.iosevka-bin.override { variant = "SGr-IosevkaFixedSlab"; });
     regular = "Medium";
     italic = "Medium Italic";
     bold = "Extrabold";
@@ -57,5 +56,6 @@ in {
     config.lib.fonts.sans.package
     config.lib.fonts.serif.package
     config.lib.fonts.emoji.package
+    monaspace
   ];
 }

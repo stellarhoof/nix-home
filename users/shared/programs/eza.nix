@@ -2,21 +2,6 @@
   # Eza is a modern replacement for ls
   programs.eza.enable = true;
 
-  # Enable recommended eza aliases (ls, ll, etc...)
-  # For posterity, these were the aliases I had before:
-  #
-  #   ```nix
-  #   home.shellAliases = rec {
-  #     l = "${ls} -Alho";
-  #     la = "${ls} -A";
-  #     # Use full path to avoid infinite recursion when auto completing
-  #     ls =
-  #       "LC_ALL=C ${pkgs.coreutils}/bin/ls --color=auto --group-directories-first";
-  #     tree = "${pkgs.tree}/bin/tree -a --dirsfirst -I .git";
-  #   };
-  #   ```
-  programs.eza.enableAliases = true;
-
   home.shellAliases = { l = "eza -la"; };
 
   # Extra command line options

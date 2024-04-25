@@ -28,6 +28,8 @@
     # Remove EOL spaces when copying to clipboard
     strip_trailing_spaces = "smart";
 
+    hide_window_decorations = "titlebar-only";
+
     # Render tab bar at the top of the kitty window
     tab_bar_edge = "top";
     # This is the style that looks best IMO
@@ -70,6 +72,8 @@
     # Tab management
     "kitty_mod+[" = "previous_tab";
     "kitty_mod+]" = "next_tab";
+    "kitty_mod+left" = "previous_tab";
+    "kitty_mod+right" = "next_tab";
     "kitty_mod+shift+[" = "move_tab_backward";
     "kitty_mod+shift+]" = "move_tab_forward";
     "kitty_mod+t" = "new_tab_with_cwd";
@@ -87,20 +91,34 @@
     # Misc
     "kitty_mod+r" = "load_config_file";
     "kitty_mod+ctrl+f" = "toggle_fullscreen";
+    "kitty_mod+ctrl+m" = "toggle_maximized";
   };
 
   programs.kitty.extraConfig = ''
-    font_size 14
+    font_size 16
+
+    # font_family Inconsolata
+    # font_family Iosevka Fixed Slab
     # font_family Fira Mono
     # font_family SF Mono
-    font_family IBM Plex Mono
+    # font_family IBM Plex Mono
+    # font_family Dank Mono
+    # font_family Cascadia Code
+    # font_family JetBrains Mono
+
+    font_family Operator Mono Book
+    italic_font Operator Mono Book Italic
+    bold_font Operator Mono Medium
+    bold_italic_font Operator Mono Medium Italic
+
     modify_font cell_width -1px
-    modify_font cell_height 8px
-    disable_ligatures always
+    modify_font cell_height 10px
+
     undercurl_style thick-sparse
-    modify_font underline_position 0
-    modify_font underline_thickness 130%
-    window_border_width 1pt
+    modify_font underline_position 2
+    modify_font underline_thickness 100%
+
+    enabled_layouts horizontal,vertical,fat,grid,splits,stack,tall
 
     # https://github.com/ryanoasis/nerd-fonts/wiki/Glyph-Sets-and-Code-Points#overview
     symbol_map U+23fb-U+23fe   Symbols Nerd Font Mono
