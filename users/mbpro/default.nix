@@ -26,7 +26,8 @@
   programs.neovim.vimAlias = true;
   programs.neovim.withPython3 = false;
   programs.neovim.withRuby = false;
-  programs.neovim.package = inputs.neovim.packages.${pkgs.system}.neovim;
+  programs.neovim.package =
+    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
 
   # See https://github.com/pysan3/Norg-Tutorial/blob/main/MIGRATION-v8.md#nixos
   # and https://github.com/benlubas/nix-config/blob/af644f0c157182c5f5e033959ca68db968c5dc38/programs/neovim.nix

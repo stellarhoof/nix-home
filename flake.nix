@@ -14,8 +14,8 @@
     # base16 colorschemes
     nix-colors.url = "github:misterio77/nix-colors";
 
-    neovim.url = "github:neovim/neovim?dir=contrib";
-    neovim.inputs.nixpkgs.follows = "nixpkgs";
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    neovim-nightly-overlay.inputs.nixpkgs.follows = "nixpkgs";
 
     # hyprland.url = "github:hyprwm/Hyprland?ref=v0.32.0";
     # hyprland.inputs.nixpkgs.follows = "nixpkgs";

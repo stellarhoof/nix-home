@@ -132,6 +132,6 @@
     SQLITE_HISTORY = "${cacheHome}/sqlite_history";
     STACK_ROOT = "${dataHome}/stack";
     WEECHAT_HOME = "${configHome}/weechat";
-    WGETRC = "${configHome}/wgetrc";
+    # WGETRC = "${configHome}/wgetrc";
   };
 }

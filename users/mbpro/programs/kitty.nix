@@ -28,7 +28,7 @@
     # Remove EOL spaces when copying to clipboard
     strip_trailing_spaces = "smart";
 
-    hide_window_decorations = "titlebar-only";
+    # hide_window_decorations = "titlebar-only";
 
     # Render tab bar at the top of the kitty window
     tab_bar_edge = "top";
