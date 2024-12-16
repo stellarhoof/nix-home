@@ -5,6 +5,7 @@ let
 in {
   home.packages = with pkgs; [
     # deno
+    bun
     nodejs_20
     corepack_20
   ];
@@ -12,6 +13,7 @@ in {
   home.sessionPath = [ "${NPM_PACKAGES}/bin" "./node_modules/.bin" ];
 
   home.shellAliases.y = "yarn";
+  home.shellAliases.p = "pnpm";
 
   home.file.".local/bin/node-repl.mjs" = {
     executable = true;

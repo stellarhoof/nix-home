@@ -27,36 +27,29 @@
   programs.neovim.withPython3 = false;
   programs.neovim.withRuby = false;
   programs.neovim.package =
-    inputs.neovim-nightly-overlay.packages.${pkgs.system}.default;
+    inputs.neovim-overlay.packages.${pkgs.system}.default;
 
-  # See https://github.com/pysan3/Norg-Tutorial/blob/main/MIGRATION-v8.md#nixos
-  # and https://github.com/benlubas/nix-config/blob/af644f0c157182c5f5e033959ca68db968c5dc38/programs/neovim.nix
-  # let
-  #   binpath = lib.makeBinPath (with pkgs; [
-  #     lua # required for luarocks.nvim to work
-  #     # ... other language servers and stuff only nvim needs
-  #   ]);
-  #   neovimConfig = pkgs.neovimUtils.makeNeovimConfig {
-  #     # ... whatever else you normally have here
-  #     customRC = "luafile ~/.config/nvim/init.lua";
-  #   };
-  #   fullConfig = (neovimConfig // {
-  #     wrapperArgs = lib.escapeShellArgs neovimConfig.wrapperArgs
-  #       + " --prefix PATH : ${binpath}"; # this is the important part!
-  #   });
-  # in {
-  #   nixpkgs.overlays = [
-  #     (_: super: {
-  #       neovim-custom = pkgs.wrapNeovimUnstable
-  #         (super.neovim-unwrapped.overrideAttrs (oldAttrs: {
-  #           buildInputs = oldAttrs.buildInputs ++ [ super.tree-sitter ];
-  #         })) fullConfig;
-  #     })
-  #   ];
-  #   environment.systemPackages = with pkgs; [
-  #     neovim-custom
-  #   ];
-  # }
+  programs.neovide.enable = true;
+  programs.neovide.settings = { };
+
+  # Emacs text editor
+  #
+  # Install https://github.com/d12frosted/homebrew-emacs-plus instead
+  # `brew install emacs-plus@30 --with-native-comp`
+  #
+  # Then enable emacs server with
+  # `brew services start d12frosted/emacs-plus/emacs-plus@30`
+  # 
+  # Then make an Emacs.app so spotlight can launch it
+  # https://github.com/d12frosted/homebrew-emacs-plus/issues/398#issuecomment-1366510944
+  # Use the following command in automator
+  # `/opt/homebrew/bin/emacsclient --frame-parameters="((fullscreen . maximized))" --no-wait --quiet --suppress-output --create-frame "$@"`
+  #
+  # Optionally change the application icon
+  # https://apple.stackexchange.com/questions/369/can-i-change-the-application-icon-of-an-automator-script
+
+  # programs.emacs.enable = true;
+  # programs.emacs.package = pkgs.emacs-macport;
 
   # Not shared because it's already enabled in nixos at the system level.
   # Provides a command `nix-locate` to locate the package providing a certain

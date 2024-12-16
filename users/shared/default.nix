@@ -1,8 +1,7 @@
 # TODO: Look into config.specialisation
 
-{ config, lib, pkgs, ... }: {
+{ config, lib, pkgs, inputs, ... }: {
   imports = [
-    # ./smartprocure.nix
     ./colors.nix
     ./fonts.nix
     ./programs/alacritty.nix
@@ -13,7 +12,6 @@
     ./programs/node.nix
     ./programs/pass.nix
     ./programs/python.nix
-    # ./programs/qutebrowser.nix
     ./programs/starship.nix
   ];
 
@@ -25,8 +23,6 @@
     fd # Faster find implementation
     file # Determine file type
     gnused # GNU sed, a batch stream editor
-    (writeShellScriptBin "gsed"
-      ''exec ${gnused}/bin/sed "$@"'') # So nvim-spectre can work
     htop # Interactive process viewer
     jq # Json formatter
     killall # Kill processes by name
@@ -39,7 +35,7 @@
     unzip # File archiver
     wget # Non-interactive web downloader
     xorg.lndir # Create a directory of symbolic links
-    youtube-dl # Web video downloader
+    yt-dlp # Web video downloader
   ];
 
   # Fish, the friendly shell, much more usable than bash.

@@ -8,8 +8,6 @@
     })
   ];
 
-  home.shellAliases = { p = "python"; };
-
   home.sessionVariables = with config.xdg; {
     # Make Python remember history (default repl sucks)
     PYTHONSTARTUP = "${dataHome}/python/startup.py";

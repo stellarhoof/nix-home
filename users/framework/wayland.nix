@@ -1,11 +1,5 @@
 { pkgs, config, ... }: {
-  imports = [
-    ./programs/foot.nix
-    ./programs/hyprland.nix
-    ./programs/rofi-wayland.nix
-    # ./programs/sway.nix
-    ./programs/waybar.nix
-  ];
+  imports = [ ./programs/foot.nix ];
 
   home.sessionVariables = {
     # https://wiki.hyprland.org/Configuring/Environment-variables/#xdg-specifications
