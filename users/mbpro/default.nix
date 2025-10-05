@@ -1,7 +1,22 @@
-{ config, lib, pkgs, inputs, ... }:
+# Paste this in `/etc/.zshrc` after a new MacOS upgrade
+# # Nix
+# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+#   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+# fi
+# # End Nix
 
 {
-  imports = [ ../shared/default.nix ./programs/kitty.nix ];
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
+  imports = [
+    ../shared/default.nix
+    # ./programs/kitty.nix
+  ];
 
   # https://en.wikipedia.org/wiki/List_of_GNU_Packages
   home.packages = with pkgs; [
@@ -26,30 +41,7 @@
   programs.neovim.vimAlias = true;
   programs.neovim.withPython3 = false;
   programs.neovim.withRuby = false;
-  programs.neovim.package =
-    inputs.neovim-overlay.packages.${pkgs.system}.default;
-
-  programs.neovide.enable = true;
-  programs.neovide.settings = { };
-
-  # Emacs text editor
-  #
-  # Install https://github.com/d12frosted/homebrew-emacs-plus instead
-  # `brew install emacs-plus@30 --with-native-comp`
-  #
-  # Then enable emacs server with
-  # `brew services start d12frosted/emacs-plus/emacs-plus@30`
-  # 
-  # Then make an Emacs.app so spotlight can launch it
-  # https://github.com/d12frosted/homebrew-emacs-plus/issues/398#issuecomment-1366510944
-  # Use the following command in automator
-  # `/opt/homebrew/bin/emacsclient --frame-parameters="((fullscreen . maximized))" --no-wait --quiet --suppress-output --create-frame "$@"`
-  #
-  # Optionally change the application icon
-  # https://apple.stackexchange.com/questions/369/can-i-change-the-application-icon-of-an-automator-script
-
-  # programs.emacs.enable = true;
-  # programs.emacs.package = pkgs.emacs-macport;
+  programs.neovim.package = inputs.neovim-overlay.packages.${pkgs.system}.default;
 
   # Not shared because it's already enabled in nixos at the system level.
   # Provides a command `nix-locate` to locate the package providing a certain
@@ -59,7 +51,7 @@
 
   # MacOS uses zsh as its default shell.
   programs.zsh.enable = true;
-  programs.zsh.dotDir = ".config/zsh";
+  programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
   programs.zsh.loginExtra = ''
     # https://shreevatsa.wordpress.com/2008/03/30/zshbash-startup-files-loading-order-bashrc-zshrc-etc/
 
@@ -104,39 +96,41 @@
   # This is not a perfect solution but a compromise.
   disabledModules = [ "targets/darwin/linkapps.nix" ];
   home.activation = {
-    copyApplications = let
-      apps = pkgs.buildEnv {
-        name = "home-manager-applications";
-        paths = config.home.packages;
-        pathsToLink = "/Applications";
-      };
-      # baseDir="$HOME/Applications/Home Manager Apps"
-      # if [ -d "$baseDir" ]; then
-      #   rm -rf "$baseDir"
-      # fi
-      # mkdir -p "$baseDir"
-      # for appFile in ${apps}/Applications/*; do
-      #   target="$baseDir/$(basename "$appFile")"
-      #   $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
-      #   $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
-      # done
-    in lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-      toDir="$HOME/Applications/HMApps"
-      fromDir="${apps}/Applications"
-      rm -rf "$toDir"
-      mkdir "$toDir"
-      (
-        cd "$fromDir"
-        for app in *.app; do
-          /usr/bin/osacompile -o "$toDir/$app" -e "do shell script \"open '$fromDir/$app'\""
-          icon="$(/usr/bin/plutil -extract CFBundleIconFile raw "$fromDir/$app/Contents/Info.plist")"
-          if [[ $icon != *".icns" ]]; then
-            icon="$icon.icns"
-          fi
-          mkdir -p "$toDir/$app/Contents/Resources"
-          cp -f "$fromDir/$app/Contents/Resources/$icon" "$toDir/$app/Contents/Resources/applet.icns"
-        done
-      )
-    '';
+    copyApplications =
+      let
+        apps = pkgs.buildEnv {
+          name = "home-manager-applications";
+          paths = config.home.packages;
+          pathsToLink = "/Applications";
+        };
+        # baseDir="$HOME/Applications/Home Manager Apps"
+        # if [ -d "$baseDir" ]; then
+        #   rm -rf "$baseDir"
+        # fi
+        # mkdir -p "$baseDir"
+        # for appFile in ${apps}/Applications/*; do
+        #   target="$baseDir/$(basename "$appFile")"
+        #   $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
+        #   $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
+        # done
+      in
+      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
+        toDir="$HOME/Applications/HMApps"
+        fromDir="${apps}/Applications"
+        rm -rf "$toDir"
+        mkdir "$toDir"
+        (
+          cd "$fromDir"
+          for app in *.app; do
+            /usr/bin/osacompile -o "$toDir/$app" -e "do shell script \"open '$fromDir/$app'\""
+            icon="$(/usr/bin/plutil -extract CFBundleIconFile raw "$fromDir/$app/Contents/Info.plist")"
+            if [[ $icon != *".icns" ]]; then
+              icon="$icon.icns"
+            fi
+            mkdir -p "$toDir/$app/Contents/Resources"
+            cp -f "$fromDir/$app/Contents/Resources/$icon" "$toDir/$app/Contents/Resources/applet.icns"
+          done
+        )
+      '';
   };
 }

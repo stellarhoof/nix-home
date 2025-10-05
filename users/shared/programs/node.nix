@@ -2,18 +2,20 @@
 let
   # Global npm packages
   NPM_PACKAGES = "${config.xdg.dataHome}/npm";
-in {
+in
+{
   home.packages = with pkgs; [
-    # deno
-    bun
-    nodejs_20
-    corepack_20
+    nodejs_24
+    corepack_24
   ];
 
-  home.sessionPath = [ "${NPM_PACKAGES}/bin" "./node_modules/.bin" ];
+  home.sessionPath = [
+    "${NPM_PACKAGES}/bin"
+    "./node_modules/.bin"
+  ];
 
-  home.shellAliases.y = "yarn";
-  home.shellAliases.p = "pnpm";
+  home.shellAliases.y = "corepack yarn";
+  home.shellAliases.p = "corepack pnpm";
 
   home.file.".local/bin/node-repl.mjs" = {
     executable = true;
