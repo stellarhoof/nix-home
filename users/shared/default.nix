@@ -1,13 +1,20 @@
 # TODO: Look into config.specialisation
 
-{ config, lib, pkgs, inputs, ... }: {
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+{
   imports = [
     ./colors.nix
     ./fonts.nix
-    ./programs/alacritty.nix
     ./programs/direnv.nix
     ./programs/eza.nix
     ./programs/fzf.nix
+    ./programs/ghostty.nix
     ./programs/git.nix
     ./programs/node.nix
     ./programs/pass.nix
@@ -27,6 +34,7 @@
     jq # Json formatter
     killall # Kill processes by name
     nixfmt # Nix language formatter
+    ngrok # Reverse proxy
     qrencode # Encode input data in a QR code and save as image
     sqlitebrowser # sqlite GUI
     tokei # Count LOC

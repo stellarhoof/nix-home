@@ -1,6 +1,7 @@
 # See https://sw.kovidgoyal.net/kitty/conf
 
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   programs.kitty.enable = true;
 
   programs.kitty.settings = {
@@ -98,7 +99,7 @@
 
     font_size 17
     modify_font cell_width -1px
-    modify_font cell_height 13px
+    modify_font cell_height 9px
 
     undercurl_style thick-sparse
     modify_font underline_position 2
