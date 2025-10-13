@@ -26,11 +26,11 @@
     _7zz # File archiver
     ast-grep # Structural search/replace
     bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
-    dua # Disk usage analyzer
+    dua # `du` alternative
+    duf # `df` alternative
     fd # Faster find implementation
     file # Determine file type
     gnused # GNU sed, a batch stream editor
-    htop # Interactive process viewer
     jq # Json formatter
     killall # Kill processes by name
     nixfmt # Nix language formatter
@@ -83,11 +83,12 @@
   # Simple aliases that are compatible across all shells.
   home.shellAliases = rec {
     cp = "cp -i";
-    df = "df -h";
+    df = "duf";
     du = "dua";
     less = "less -R";
     diff = "diff --color=auto";
     rm = "echo 'Use `trash-put` instead!'; false";
+    top = "btm";
     te = "trash-empty";
     tl = "trash-list";
     tp = "trash-put";

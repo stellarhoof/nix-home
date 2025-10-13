@@ -7,6 +7,14 @@
   programs.ghostty.enable = false;
 
   programs.ghostty.settings = {
+    # Warning: Black magic!
+    font-size = 16;
+    adjust-cell-width = "-4%";
+    adjust-cell-height = "45%";
+    adjust-underline-position = 4;
+    adjust-underline-thickness = 2;
+    font-family = "PragmataPro Liga";
+
     # # Warning: Black magic!
     # font-size = 17;
     # adjust-cell-width = "-3%";
@@ -19,17 +27,17 @@
     # font-style-italic = "Book Italic";
     # font-style-bold-italic = "Bold Italic";
 
-    # Warning: Black magic!
-    font-size = 18;
-    adjust-cell-width = "-3%";
-    adjust-cell-height = "15%";
-    adjust-cursor-height = "15%";
-    adjust-underline-position = 6;
-    font-family = "Iosevka Slab";
-    font-style = "Regular";
-    font-style-bold = "Heavy";
-    font-style-italic = "Italic";
-    font-style-bold-italic = "Heavy Italic";
+    # # Warning: Black magic!
+    # font-size = 18;
+    # adjust-cell-width = "-3%";
+    # adjust-cell-height = "15%";
+    # adjust-cursor-height = "15%";
+    # adjust-underline-position = 6;
+    # font-family = "Iosevka Slab";
+    # font-style = "Regular";
+    # font-style-bold = "Heavy";
+    # font-style-italic = "Italic";
+    # font-style-bold-italic = "Heavy Italic";
 
     # Maximize window on startup
     window-width = 1000;

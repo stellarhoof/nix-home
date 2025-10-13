@@ -1,10 +1,3 @@
-# Paste this in `/etc/.zshrc` after a new MacOS upgrade
-# # Nix
-# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-#   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-# fi
-# # End Nix
-
 {
   config,
   lib,
@@ -90,47 +83,4 @@
   # In linux, these experimental features are setup at the system level.
   nix.package = pkgs.nix;
   nix.settings.experimental-features = "nix-command flakes";
-
-  # Copy applications instead of linking them so Spotlight finds them. Long
-  # discussion at https://github.com/nix-community/home-manager/issues/1341.
-  # This is not a perfect solution but a compromise.
-  disabledModules = [ "targets/darwin/linkapps.nix" ];
-  home.activation = {
-    copyApplications =
-      let
-        apps = pkgs.buildEnv {
-          name = "home-manager-applications";
-          paths = config.home.packages;
-          pathsToLink = "/Applications";
-        };
-        # baseDir="$HOME/Applications/Home Manager Apps"
-        # if [ -d "$baseDir" ]; then
-        #   rm -rf "$baseDir"
-        # fi
-        # mkdir -p "$baseDir"
-        # for appFile in ${apps}/Applications/*; do
-        #   target="$baseDir/$(basename "$appFile")"
-        #   $DRY_RUN_CMD cp ''${VERBOSE_ARG:+-v} -fHRL "$appFile" "$baseDir"
-        #   $DRY_RUN_CMD chmod ''${VERBOSE_ARG:+-v} -R +w "$target"
-        # done
-      in
-      lib.hm.dag.entryAfter [ "writeBoundary" ] ''
-        toDir="$HOME/Applications/HMApps"
-        fromDir="${apps}/Applications"
-        rm -rf "$toDir"
-        mkdir "$toDir"
-        (
-          cd "$fromDir"
-          for app in *.app; do
-            /usr/bin/osacompile -o "$toDir/$app" -e "do shell script \"open '$fromDir/$app'\""
-            icon="$(/usr/bin/plutil -extract CFBundleIconFile raw "$fromDir/$app/Contents/Info.plist")"
-            if [[ $icon != *".icns" ]]; then
-              icon="$icon.icns"
-            fi
-            mkdir -p "$toDir/$app/Contents/Resources"
-            cp -f "$fromDir/$app/Contents/Resources/$icon" "$toDir/$app/Contents/Resources/applet.icns"
-          done
-        )
-      '';
-  };
 }

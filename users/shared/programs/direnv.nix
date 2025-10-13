@@ -10,7 +10,8 @@
   # collector to delete build outputs when doing `nix-collect-garbage -d`.
   programs.direnv.nix-direnv.enable = true;
 
-  # https://github.com/direnv/direnv/wiki/Quiet-or-Silence-direnv
+  # Do not output logging of loaded env variables upon activating direnv.
+  # See https://github.com/direnv/direnv/wiki/Quiet-or-Silence-direnv
   programs.direnv.silent = true;
 
   # Direnv creates a `.direnv` directory in every direnv-enabled directory. The
