@@ -1,10 +1,8 @@
-# See https://sw.kovidgoyal.net/kitty/conf
-
 { config, pkgs, ... }:
 {
   # Ghostty is marked as broken in MacOS but the configuration is here for
   # reference purposes until it's fixed.
-  programs.ghostty.enable = false;
+  programs.ghostty.enable = !pkgs.stdenv.isDarwin;
 
   programs.ghostty.settings = {
     # Warning: Black magic!
