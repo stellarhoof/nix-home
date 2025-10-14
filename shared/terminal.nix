@@ -15,6 +15,7 @@
     ./programs/git.nix
     ./programs/gpg.nix
     ./programs/node.nix
+    ./programs/neovim.nix
     ./programs/pass.nix
     ./programs/python.nix
     ./programs/starship.nix

@@ -33,16 +33,6 @@
   # Manage $XDG_* variables
   xdg.enable = true;
 
-  # In linux, neovim is provided at the system level but in MacOS it's not, so
-  # we have to manage it at the user level
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
-  programs.neovim.viAlias = true;
-  programs.neovim.vimAlias = true;
-  programs.neovim.withPython3 = false;
-  programs.neovim.withRuby = false;
-  programs.neovim.package = inputs.neovim-overlay.packages.${pkgs.system}.default;
-
   # Not shared because it's already enabled in nixos at the system level.
   # Provides a command `nix-locate` to locate the package providing a certain
   # file in nixpkgs. This also enables a `command-not-found` replacement that

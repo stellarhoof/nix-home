@@ -1,13 +1,7 @@
-- Programs assummed to be installed: `curl`, `git`, `gpg`, `ssh-add`, `home-manager`
-- Features: `nix-command flakes`
+Install home configuration through `home-manager`
 
 ```bash
-# Home manager
 nix-shell -p git neovim home-manager
 git clone https://github.com/stellarhoof/nix-home ~/.config/home-manager
-home-manager switch -b backup --flake '.#ah/cosmic'
-
-# Pass
+home-manager --experimental-features "nix-command flakes" switch -b backup --flake ".#ah/cosmic"
 ```
-
-`bash -c "$(curl https://raw.githubusercontent.com/stellarhoof/nix-home/master/bin/install.sh)"`
