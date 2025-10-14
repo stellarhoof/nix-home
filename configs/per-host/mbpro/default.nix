@@ -14,7 +14,7 @@
 }:
 {
   imports = [
-    ../shared/default.nix
+    # ../../../shared/programs/ghostty.nix
     # ./programs/kitty.nix
   ];
 
@@ -73,18 +73,6 @@
     # MacOS, which is to prepend everything in `/etc/paths` to `$PATH`, which
     # hides NIX paths. This moves those paths to the end.
     fish_add_path -maP /usr/local/bin /usr/bin /bin /usr/sbin /sbin
-  '';
-
-  programs.gpg.enable = true;
-
-  # There are services.gpg-agent.* options, but those try to start gpg-agent
-  # through systemd, and OSX's launchd does it automatically
-  home.file.".gnupg/gpg-agent.conf".text = ''
-    default-cache-ttl 34560000
-    default-cache-ttl-ssh 34560000
-    max-cache-ttl 34560000
-    max-cache-ttl-ssh 34560000
-    pinentry-program ${pkgs.pinentry_mac}/${pkgs.pinentry_mac.binaryPath}
   '';
 
   # In linux, these experimental features are setup at the system level.

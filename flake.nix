@@ -22,9 +22,6 @@
     # home-manager.url = "github:nix-community/home-manager/release-25.05";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    # base16 colorschemes
-    nix-colors.url = "github:misterio77/nix-colors";
-
     neovim-overlay.url = "github:nix-community/neovim-nightly-overlay";
     neovim-overlay.inputs.nixpkgs.follows = "nixpkgs";
   };
@@ -36,19 +33,6 @@
       ...
     }:
     {
-      homeConfigurations."ah@framework" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs { system = "x86_64-linux"; };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          {
-            home.stateVersion = "25.05";
-            home.username = "ah";
-            home.homeDirectory = "/home/ah";
-          }
-          ./users/framework/default.nix
-        ];
-      };
-
       homeConfigurations."ah@mbpro" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs { system = "aarch64-darwin"; };
         extraSpecialArgs = { inherit inputs; };
@@ -58,7 +42,22 @@
             home.username = "ah";
             home.homeDirectory = "/Users/ah";
           }
-          ./users/mbpro/default.nix
+          ./shared/terminal.nix
+          ./configs/per-host/mbpro/default.nix
+        ];
+      };
+
+      homeConfigurations."ah/cosmic" = home-manager.lib.homeManagerConfiguration {
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+        extraSpecialArgs = { inherit inputs; };
+        modules = [
+          {
+            home.stateVersion = "25.05";
+            home.username = "ah";
+            home.homeDirectory = "/home/ah";
+          }
+          ./shared/terminal.nix
+          ./configs/per-desktop/cosmic/default.nix
         ];
       };
     };

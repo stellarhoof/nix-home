@@ -4,7 +4,7 @@
 set -o errexit
 
 # Import private gpg key.
-curl https://raw.githubusercontent.com/stellarhoof/pass/master/gpg/store | gpg --import -
+curl https://raw.githubusercontent.com/stellarhoof/pass/master/store-key.asc | gpg --import -
 
 # Download and decrypt private github ssh key.
 mkdir -p ~/.ssh

@@ -9,13 +9,11 @@
 }:
 {
   imports = [
-    ./colors.nix
-    ./fonts.nix
     ./programs/direnv.nix
     ./programs/eza.nix
     ./programs/fzf.nix
-    ./programs/ghostty.nix
     ./programs/git.nix
+    ./programs/gpg.nix
     ./programs/node.nix
     ./programs/pass.nix
     ./programs/python.nix
@@ -25,7 +23,6 @@
   home.packages = with pkgs; [
     _7zz # File archiver
     ast-grep # Structural search/replace
-    bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
     dua # `du` alternative
     duf # `df` alternative
     fd # Faster find implementation
@@ -72,10 +69,8 @@
   # searching for a page or keyword using utilities like apropos(1).
   programs.man.generateCaches = true;
 
-  # Allow unfree packages. Workaround because `nixpkgs.config.allowUnfree =
-  # true;` does not work with flakes. See
-  # https://github.com/nix-community/home-manager/issues/2942
-  nixpkgs.config.allowUnfreePredicate = (pkg: true);
+  # Allow unfree packages.
+  nixpkgs.config.allowUnfree = true;
 
   # Process/system monitor
   programs.bottom.enable = true;

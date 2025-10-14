@@ -1,4 +1,5 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, ... }:
+{
   # Better looking diffs
   programs.git.diff-so-fancy.enable = true;
 
@@ -25,7 +26,11 @@
   };
 
   # Only using hub for `hub sync`, see https://github.com/cli/cli/issues/1722
-  home.packages = with pkgs; [ gitAndTools.hub git-filter-repo ];
+  home.packages = with pkgs; [
+    gitAndTools.hub
+    git-filter-repo
+    bfg-repo-cleaner # Removes large or troublesome blobs like git-filter-branch does
+  ];
 
   # Less typing
   home.shellAliases.g = "git";
@@ -39,8 +44,10 @@
 
   # Git aliases
   programs.git.aliases =
-    let format = "%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]";
-    in {
+    let
+      format = "%C(yellow)%h %ad%Cred%d %Creset%s%Cblue [%cn]";
+    in
+    {
       # Essential operations
       st = "status";
       co = "checkout";
@@ -148,7 +155,9 @@
     branch = "blue";
     localBranch = "blue";
   };
-  programs.git.extraConfig."color \"diff\"" = { meta = "cyan bold"; };
+  programs.git.extraConfig."color \"diff\"" = {
+    meta = "cyan bold";
+  };
 
   # TODO: Add to programs.fish.functions
   # function git_oldest_ancestor --description "https://stackoverflow.com/questions/1527234/finding-a-branch-point-with-git" --argument base branch

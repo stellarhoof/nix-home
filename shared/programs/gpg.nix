@@ -1,6 +1,8 @@
 { config, ... }:
-let ttl = 60480000;
-in {
+let
+  ttl = 60480000;
+in
+{
   # Enable and manage gpg configuration
   programs.gpg.enable = true;
 
@@ -9,9 +11,6 @@ in {
 
   # Manage agent configuration with home-manager
   services.gpg-agent.enable = true;
-
-  # Pinentry is the program that asks for a passphrase
-  services.gpg-agent.pinentryFlavor = "qt";
 
   # Cache decrypted keys for a long time
   services.gpg-agent.defaultCacheTtl = ttl;
