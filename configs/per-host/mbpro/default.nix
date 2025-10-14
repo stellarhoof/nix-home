@@ -14,8 +14,8 @@
 }:
 {
   imports = [
-    # ../../../shared/programs/ghostty.nix
-    # ./programs/kitty.nix
+    ./programs/ghostty.nix
+    ./programs/kitty.nix
   ];
 
   # https://en.wikipedia.org/wiki/List_of_GNU_Packages
@@ -39,6 +39,16 @@
   # outputs suggestions on packages that contains the missing command.
   programs.nix-index.enable = true;
 
+  programs.fish.loginShellInit = ''
+    # Add homebrew path
+    fish_add_path -pP /opt/homebrew/bin
+
+    # Fish login shells emulate the behavior of `/usr/libexec/path_helper` in
+    # MacOS, which is to prepend everything in `/etc/paths` to `$PATH`, which
+    # hides NIX paths. This moves those paths to the end.
+    fish_add_path -maP /usr/local/bin /usr/bin /bin /usr/sbin /sbin
+  '';
+
   # MacOS uses zsh as its default shell.
   programs.zsh.enable = true;
   programs.zsh.dotDir = "${config.xdg.configHome}/zsh";
@@ -54,18 +64,4 @@
     # non-login shells so users can run `zsh` and get what they expect.
     exec ${config.programs.fish.package}/bin/fish -l
   '';
-
-  programs.fish.loginShellInit = ''
-    # Add homebrew path
-    fish_add_path -pP /opt/homebrew/bin
-
-    # Fish login shells emulate the behavior of `/usr/libexec/path_helper` in
-    # MacOS, which is to prepend everything in `/etc/paths` to `$PATH`, which
-    # hides NIX paths. This moves those paths to the end.
-    fish_add_path -maP /usr/local/bin /usr/bin /bin /usr/sbin /sbin
-  '';
-
-  # In linux, these experimental features are setup at the system level.
-  nix.package = pkgs.nix;
-  nix.settings.experimental-features = "nix-command flakes";
 }

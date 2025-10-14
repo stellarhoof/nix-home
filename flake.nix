@@ -2,17 +2,6 @@
 # Update all inputs: `nix flake update`
 # Update single input: `nix flake lock --update-input <name>`
 
-# Paste this in `/etc/.zshrc` after a new MacOS upgrade
-# # Nix
-# if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-#   . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
-# fi
-# # End Nix
-
-# If the system gets all messed up
-# - Add `experimental-features = nix-command flakes` to `/etc/nix/nix.conf`
-# - Run `nix run home-manager/master -- switch`
-
 {
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";

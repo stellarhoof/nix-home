@@ -1,4 +1,9 @@
-{ config, ... }:
+{
+  inputs,
+  pkgs,
+  config,
+  ...
+}:
 {
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;

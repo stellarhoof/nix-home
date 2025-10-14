@@ -2,7 +2,7 @@
 
 { config, pkgs, ... }:
 {
-  programs.kitty.enable = true;
+  programs.kitty.enable = false;
 
   programs.kitty.settings = {
     kitty_mod = "cmd";

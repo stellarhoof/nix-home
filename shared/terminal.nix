@@ -44,13 +44,20 @@
     yt-dlp # Web video downloader
   ];
 
+  # Not entirely sure why this is needed but it fixes some things.
+  nix.package = pkgs.nix;
+
+  # Enable flakes at the user level
+  nix.settings.experimental-features = "nix-command flakes";
+
+  # Allow unfree packages.
+  nixpkgs.config.allowUnfree = true;
+
   # Fish, the friendly shell, much more usable than bash.
   programs.fish.enable = true;
 
-  programs.fish.interactiveShellInit = ''
-    # Disable fish greeting
-    set fish_greeting
-  '';
+  # Disable fish greeting
+  programs.fish.interactiveShellInit = "set fish_greeting";
 
   # Let home-manager install and manage itself.
   programs.home-manager.enable = true;
@@ -69,9 +76,6 @@
   # Whether to generate the manual page index caches using mandb(8). This allows
   # searching for a page or keyword using utilities like apropos(1).
   programs.man.generateCaches = true;
-
-  # Allow unfree packages.
-  nixpkgs.config.allowUnfree = true;
 
   # Process/system monitor
   programs.bottom.enable = true;
